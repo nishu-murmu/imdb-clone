@@ -1,9 +1,14 @@
 import Header from "./components/Header"
+import HeroSection from "./components/HeroSection"
 
-export default function App() {
+function App() {
+
   return (
     <section className='bg-black-nav h-14 w-full font-roboto'>
-            <Header/>
+      <Header />
+      <HeroSection />
     </section>
   )
 }
+
+export default App

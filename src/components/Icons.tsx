@@ -1,12 +1,14 @@
-export const RightChevronIcon = () => {
+import { IconsProps } from "../utils/types"
+
+export const RightChevronIcon = (props: IconsProps) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
       fill='none'
       viewBox='0 0 24 24'
-      strokeWidth={1.5}
+      strokeWidth={props.strokeWidth}
       stroke='currentColor'
-      className='w-6 h-6'
+      className={props.className}
     >
       <path
         strokeLinecap='round'
@@ -55,13 +57,13 @@ export const PlusIcon = () => {
   )
 }
 
-export const PlaySolidIcon = () => {
+export const PlaySolidIcon = (props: IconsProps) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 24 24'
       fill='currentColor'
-      className='w-6 h-6'
+      className={props.className}
     >
       <path
         fillRule='evenodd'
@@ -96,7 +98,7 @@ export const FacebookIcon = () => {
       width='16'
       height='16'
       fill='currentColor'
-      class='bi bi-facebook'
+      className='bi bi-facebook'
       viewBox='0 0 16 16'
     >
       <path d='M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z' />
@@ -111,7 +113,7 @@ export const InstagramIcon = () => {
       width='16'
       height='16'
       fill='currentColor'
-      class='bi bi-instagram'
+      className='bi bi-instagram'
       viewBox='0 0 16 16'
     >
       <path d='M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z' />
@@ -126,7 +128,7 @@ export const TwitterIcon = () => {
       width='16'
       height='16'
       fill='currentColor'
-      class='bi bi-twitter'
+      className='bi bi-twitter'
       viewBox='0 0 16 16'
     >
       <path d='M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z' />
@@ -141,7 +143,7 @@ export const TwitchIcon = () => {
       width='16'
       height='16'
       fill='currentColor'
-      class='bi bi-twitch'
+      className='bi bi-twitch'
       viewBox='0 0 16 16'
     >
       <path d='M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0H3.857zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142v6.286z' />
@@ -157,7 +159,7 @@ export const YoutubeIcon = () => {
       width='16'
       height='16'
       fill='currentColor'
-      class='bi bi-youtube'
+      className='bi bi-youtube'
       viewBox='0 0 16 16'
     >
       <path d='M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z' />
@@ -172,7 +174,7 @@ export const TiktokIcon = () => {
       width='16'
       height='16'
       fill='currentColor'
-      class='bi bi-tiktok'
+      className='bi bi-tiktok'
       viewBox='0 0 16 16'
     >
       <path d='M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z' />
@@ -186,7 +188,7 @@ export const BookMarkPlusIcon = () => {
       width='24'
       height='24'
       xmlns='http://www.w3.org/2000/svg'
-      class='ipc-icon ipc-icon--watchlist ipc-btn__icon ipc-btn__icon--pre'
+      className='ipc-icon ipc-icon--watchlist ipc-btn__icon ipc-btn__icon--pre'
       id='iconContext-watchlist'
       viewBox='0 0 24 24'
       fill='currentColor'
@@ -207,7 +209,7 @@ export const PeopleFillIcon = () => {
       width='16'
       height='16'
       fill='currentColor'
-      class='bi bi-people-fill'
+      className='bi bi-people-fill'
       viewBox='0 0 16 16'
     >
       <path d='M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z' />
@@ -317,7 +319,7 @@ export const LinkIcon = () => {
       width='16'
       height='16'
       fill='currentColor'
-      class='bi bi-box-arrow-up-right'
+      className='bi bi-box-arrow-up-right'
       viewBox='0 0 16 16'
     >
       <path
@@ -339,7 +341,7 @@ export const ArrowDownFillIcon = () => {
       width='16'
       height='16'
       fill='currentColor'
-      class='bi bi-caret-down-fill'
+      className='bi bi-caret-down-fill'
       viewBox='0 0 16 16'
     >
       <path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z' />
@@ -353,7 +355,7 @@ export const BuildingIcon = () => {
       xmlns='http://www.w3.org/2000/svg'
       width='24'
       height='24'
-      class='ipc-icon ipc-icon--business searchCatSelector__itemIcon'
+      className='ipc-icon ipc-icon--business searchCatSelector__itemIcon'
       id='iconContext-business'
       viewBox='0 0 24 24'
       fill='currentColor'
@@ -371,7 +373,7 @@ export const HamBurgerIcon = () => {
       xmlns='http://www.w3.org/2000/svg'
       width='24'
       height='24'
-      class='ipc-icon ipc-icon--menu ipc-responsive-button__icon'
+      className='ipc-icon ipc-icon--menu ipc-responsive-button__icon'
       id='iconContext-menu'
       viewBox='0 0 24 24'
       fill='currentColor'
@@ -389,7 +391,7 @@ export const FileSearchIcon = () => {
       xmlns='http://www.w3.org/2000/svg'
       width='24'
       height='24'
-      class='ipc-icon ipc-icon--find-in-page searchCatSelector__itemIcon'
+      className='ipc-icon ipc-icon--find-in-page searchCatSelector__itemIcon'
       id='iconContext-find-in-page'
       viewBox='0 0 24 24'
       fill='currentColor'
@@ -408,10 +410,40 @@ export const ArrowUpFillIcon = () => {
       width='16'
       height='16'
       fill='currentColor'
-      class='bi bi-caret-up-fill'
+      className='bi bi-caret-up-fill'
       viewBox='0 0 16 16'
     >
       <path d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z' />
+    </svg>
+  )
+}
+
+export const CollectionPlayIcon = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='16'
+      height='16'
+      fill='currentColor'
+      className='bi bi-collection-play-fill'
+      viewBox='0 0 16 16'
+    >
+      <path d='M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm6.258-6.437a.5.5 0 0 1 .507.013l4 2.5a.5.5 0 0 1 0 .848l-4 2.5A.5.5 0 0 1 6 12V7a.5.5 0 0 1 .258-.437z' />
+    </svg>
+  )
+}
+
+export const CrossIcon = (height: string, width: string, className: string) => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={height}
+      height={width}
+      fill='black'
+      className={`bi bi-x-lg ${className}`}
+      viewBox='0 0 16 16'
+    >
+      <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z' />
     </svg>
   )
 }
