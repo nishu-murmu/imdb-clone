@@ -8,10 +8,12 @@ module.exports = {
         overlay: "1024px",
       },
     },
-    fontSize: {
-      title: ["20px"],
-    },
     extend: {
+      fontSize: {
+        title: ["20px"],
+        search: ["16px"],
+        sm: ["12px"],
+      },
       borderRadius: {
         sm: ".225rem",
       },
@@ -20,6 +22,7 @@ module.exports = {
       },
       colors: {
         black: {
+          default: "#000",
           nav: "#121212",
           "nav-hover": "#252525",
           overlay: "#1e1e1f",
@@ -37,5 +40,5 @@ module.exports = {
       PointerEvents: ["hover", "focus"],
     },
   },
-  plugins: [],
-};
+  plugins: [require("@tailwindcss/line-clamp")],
+}
