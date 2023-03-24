@@ -74,19 +74,20 @@ export const PlaySolidIcon = (props: IconsProps) => {
   )
 }
 
-export const PlayCircleSolidIcon = () => {
+export const PlayCircleSolidIcon = (props: IconsProps) => {
   return (
     <svg
+      width={props.width}
+      height={props.height}
       xmlns='http://www.w3.org/2000/svg'
+      className={`${props.className} ipc-icon ipc-icon--play-circle-outline-large-inline ipc-icon--inline sc-d4cb23a2-14 ejjmJF editorial-play-icon'
+      id='iconContext-play-circle-outline-large-inline`}
       viewBox='0 0 24 24'
       fill='currentColor'
-      className='w-6 h-6'
+      role='presentation'
     >
-      <path
-        fillRule='evenodd'
-        d='M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z'
-        clipRule='evenodd'
-      />
+      <path d='M10.803 15.932l4.688-3.513a.498.498 0 0 0 0-.803l-4.688-3.514a.502.502 0 0 0-.803.402v7.026c0 .412.472.653.803.402z'></path>
+      <path d='M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-1c6.075 0 11-4.925 11-11S18.075 1 12 1 1 5.925 1 12s4.925 11 11 11z'></path>
     </svg>
   )
 }

@@ -11,7 +11,7 @@ import {
   SearchIcon,
 } from "../components/Icons"
 import { LogoImage } from "../components/Images"
-import SearchMovie from "../utils/apiFunctions"
+import { getSearchMovie } from "../utils/apiFunctions"
 import { HeaderActions } from "../store/reducers/headerSlice"
 import { RootState } from "../utils/types"
 
@@ -20,14 +20,16 @@ const Header: React.FC = () => {
   const searchText = useSelector((state: RootState) => state.header.searchText)
   const isMenu = useSelector((state: RootState) => state.header.isMenu)
   let isDropdown = useSelector((state: RootState) => state.header.isDropDown)
-  const searchedMovies = useSelector((state: RootState) => state.header.searchedMovies)
+  const searchedMovies = useSelector(
+    (state: RootState) => state.header.searchedMovies
+  )
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const baseUrl = import.meta.env.VITE_BASE_URL
 
   useEffect(() => {
     const getData = async () => {
-      let result = await SearchMovie(searchText)
+      let result = await getSearchMovie(searchText)
       dispatch(HeaderActions.setSearchedMovies(result))
     }
     getData()
@@ -98,21 +100,26 @@ const Header: React.FC = () => {
         {/* Search Results */}
         <div
           ref={dropdownRef}
-          className={`w-[677.783px] ${isDropdown ? "block" : "hidden"
-            } text-sm font-extralight divide-y divide-slate-700 border border-black-nav absolute`}
+          className={`w-[677.783px] ${
+            isDropdown ? "block" : "hidden"
+          } text-sm z-10 font-extralight divide-y divide-slate-700 border border-black-nav absolute`}
         >
           {searchedMovies &&
             searchedMovies.slice(0, 7).map((item: any) => (
               <div
                 key={item.id}
-                className='p-2 h-24 flex group bg-black-nav w-full gap-2 hover:bg-black-nav-hover'
+                className='p-2 h-24 flex group bg-black-nav w-full gap-2 hover:bg-black-nav-hover hover:cursor-pointer'
               >
-                <div className='h-16 w-14 group-hover:bg-black-nav-hover'>
+                <div className='h-16 w-14 group-hover:bg-black-nav-hover group-hover:cursor-pointer'>
                   <img src={`${baseUrl + item.poster_path}`} alt='' />
                 </div>
-                <div className='mt-1 group-hover:bg-black-nav-hover'>
-                  <h4 className="group-hover:bg-black-nav-hover">{item.original_title}</h4>
-                  <p className="group-hover:bg-black-nav-hover">{item.release_date.split("-")[0]}</p>
+                <div className='mt-1 group-hover:bg-black-nav-hover group-hover:cursor-pointer'>
+                  <h4 className='group-hover:bg-black-nav-hover group-hover:cursor-pointer'>
+                    {item.original_title}
+                  </h4>
+                  <p className='group-hover:bg-black-nav-hover group-hover:cursor-pointer'>
+                    {item.release_date.split("-")[0]}
+                  </p>
                 </div>
               </div>
             ))}
