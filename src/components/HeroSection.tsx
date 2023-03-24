@@ -1,81 +1,183 @@
-import { PlayCircleSolidIcon, PlaySolidIcon, RightChevronIcon } from "./Icons"
+import {
+  PlayCircleSolidIcon,
+  PlaySolidIcon,
+  RightChevronIcon,
+  StarIcon,
+} from "./Icons"
+import { Swiper, SwiperSlide } from "swiper/react"
 import MovieCard from "./MovieCard"
-import { getUpcomingMovies, getPlayingMovies } from "../utils/apiFunctions"
+import {
+  getUpcomingMovies,
+  getPlayingMovies,
+  getTrendingMedia,
+} from "../utils/apiFunctions"
 import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "../utils/types"
+import { HeroActions } from "../store/reducers/heroSlice"
+import { Autoplay, Pagination, Navigation } from "swiper"
+// Import Swiper styles
+import "swiper/css"
+import "swiper/css/pagination"
+import "swiper/css/navigation"
 
 const HeroSection: React.FC = () => {
+  const dispatch = useDispatch()
+
+  const baseUrl = import.meta.env.VITE_BASE_URL
+  const upComingMovies = useSelector(
+    (state: RootState) => state.hero.upcomingMovies
+  )
+  const trendingMedia = useSelector(
+    (state: RootState) => state.hero.trendingMedia
+  )
 
   useEffect(() => {
     const UpcomingMovies = async () => {
-      const result = await getUpcomingMovies()
-
-      const upcoming = await getPlayingMovies()
-      console.log({ result, upcoming })
+      const upComingResult = await getUpcomingMovies()
+      const trendingResult = await getTrendingMedia()
+      dispatch(HeroActions.setUpcomingMovies(upComingResult))
+      dispatch(HeroActions.setTrendingMedia(trendingResult))
+      console.log(trendingMedia)
     }
     UpcomingMovies()
   }, [])
 
   return (
-    <div
-      id='hero-section'
-      className='container mx-auto grid grid-cols-2 gap-2 text-white mt-2  items-center h-[563px] bg-black-overlay'
-    >
-      <div
-        id='main-preview'
-        className='relative col-end-2 flex flex-row py-1 h-full '
-      >
-        <div id='side-click' className='mt-44 w-full h-16'>
-          <div className=''></div>
-          <div className=''></div>
-        </div>
-        <div className='flex flex-row'>
-          <div
-            className='flex flex-row absolute bottom-0 left-5'
-            id='movie-card-section'
-          >
-            <MovieCard />
-          </div>
+    <div className='bg-black-default' id='hero-section'>
+      <div className='container mt-4 mx-auto grid grid-cols-2 gap-2 text-white items-center bg-black-nav h-[563px]'>
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={30}
+          loop={true}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          modules={[Pagination, Navigation]}
+          className='mySwiper w-full relative col-end-2 flex flex-row py-1 h-full '
+        >
+          {trendingMedia.slice(0, 9).map((item: any) => (
+            <SwiperSlide>
+              <div className='relative w-full h-full'>
+                <img
+                  className='absolute inset-0 h-full w-full object-cover'
+                  src={`${baseUrl}${item.backdrop_path}`}
+                />
 
-          <figcaption className='absolute bottom-8 flex gap-x-12 right-[12rem]'>
-            <div
-              id='playButton'
-              className='h-20 w-20 border-[3px] border-white rounded-full group hover:border-yellow-hover hover:cursor-pointer'
-            >
-              <PlaySolidIcon className='w-5 h-5 m-[28px]  group-hover:text-yellow-hover group-hover:cursor-pointer' />
-            </div>
-            <div id='heading' className=''>
-              <div>
-                <span className='font-semibold leading-9 text-3xl'>
-                  Mermaid
-                </span>
+                <div className='swiper-container'>
+                  <div className='swiper-button-prev'></div>
+                  <div className='swiper-button-next'></div>
+                </div>
+                <div
+                  className='flex flex-row absolute bottom-0 left-5'
+                  id='movie-card-section'
+                >
+                  <MovieCard
+                    height='53px'
+                    width='39px'
+                    imgUrl={`${baseUrl}${item.poster_path}`}
+                  />
+                </div>
+
+                <div
+                  id='heading'
+                  className='absolute w-26 left-48 pb-10 bottom-5 gap-y-2 flex flex-col'
+                >
+                  <span className='font-semibold leading-9 text-3xl'>
+                    {item.title || item.original_name}
+                  </span>
+                  <span className='font-medium leading-5 text-md'>
+                    {item.release_date
+                      ? item?.release_date
+                      : item?.first_air_date}
+                  </span>
+                  <div className='flex flex-row gap-x-2'>
+                    <StarIcon strokeWidth='2' className={"w-5 h-5"} />
+                    <span className='mt-0.5'>
+                      {" "}
+                      {item.vote_average.toPrecision(2)}
+                    </span>
+                  </div>
+                  <span className='truncate line-clamp-2 whitespace-normal w-96  h-[51px]'>
+                    {item.overview}
+                  </span>
+                </div>
               </div>
-            </div>
-          </figcaption>
-        </div>
-      </div>
-      <div id='side-preview' className='h-full '>
-        <div className='font-bold text-title my-4 text-yellow-default'>
-          Up Next
-        </div>
-        <div id='side-preview-card' className='flex flex-row gap-x-4 my-2'>
-          <div className='w-[88px] h-[130px] flex  bg-green-300'></div>
-          <div>
-            <PlayCircleSolidIcon
-              height='32'
-              width='32'
-              className={"hover:cursor-pointer hover:text-yellow-default"}
-            />
-            <div className='flex flex-col gap-y-2 mt-2'>
-              <div>Bob Odenkirk Receives the IMDb STARmeter Award</div>
-              <div>Watch the Icon's Interview</div>
-            </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        {/*}<div
+                id='main-preview'
+                className='relative col-end-2 flex flex-row py-1 h-full '
+            >
+                <div className='flex flex-row'>
+                    <div
+                        className='flex flex-row absolute bottom-0 left-5'
+                        id='movie-card-section'
+                    >
+                        <MovieCard />
+                    </div>
+
+                    <figcaption className='absolute bottom-8 flex gap-x-12 right-[12rem]'>
+                        <div
+                            id='playButton'
+                            className='h-20 w-20 border-[3px] border-white rounded-full group hover:border-yellow-hover hover:cursor-pointer'
+                        >
+                            <PlaySolidIcon className='w-5 h-5 m-[28px]  group-hover:text-yellow-hover group-hover:cursor-pointer' />
+                        </div>
+                        <div id='heading' className=''>
+                            <div>
+                                <span className='font-semibold leading-9 text-3xl'>
+                                    Mermaid
+                                </span>
+                            </div>
+                        </div>
+                    </figcaption>
+                </div>
+            </div>*/}
+        <div
+          id='side-preview'
+          className='px-4 h-full bg-gradient-to-b from-black-nav to-black-default'
+        >
+          <div className='font-bold text-title my-4 text-yellow-default'>
+            Up Next
           </div>
-        </div>
-        <div className='flex font-bold text-title hover:text-yellow-hover hover:cursor-pointer'>
-          Browse Trailers{" "}
-          <span className='mt-1 hover:cursor-hover hover:text-yellow-default'>
-            <RightChevronIcon className='w-6 h-6' strokeWidth='3.5' />
-          </span>
+          {upComingMovies &&
+            upComingMovies.slice(0, 3).map((item: any) => (
+              <div
+                id='side-preview-card'
+                className='flex flex-row gap-x-4 my-2'
+              >
+                <div className='w-[88px] h-[130px] flex'>
+                  <img src={`${baseUrl + item.poster_path}`} alt='' />
+                </div>
+                <div className='group hover:cursor-pointer'>
+                  <div className='flex flex-row gap-x-2'>
+                    <PlayCircleSolidIcon
+                      height='32'
+                      width='32'
+                      className={
+                        "group-hover:cursor-pointer group-hover:text-yellow-default"
+                      }
+                    />
+
+                    <h4 className='mt-1'>{item.original_title}</h4>
+                  </div>
+                  <div className=' group-hover:cursor-pointer flex flex-col gap-y-2 mt-2'>
+                    <div className='w-96 shrink h-12 whitespace-normal truncate mb-2'>
+                      {item.overview}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          <div className='pt-4 flex font-bold text-title hover:text-yellow-hover hover:cursor-pointer'>
+            Browse Trailers
+            <span className='mt-1 hover:cursor-hover hover:text-yellow-default'>
+              <RightChevronIcon className='w-6 h-6' strokeWidth='3.5' />
+            </span>
+          </div>
         </div>
       </div>
     </div>
