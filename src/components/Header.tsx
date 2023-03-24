@@ -92,7 +92,7 @@ const Header: React.FC = () => {
               className=' font-thin outline-none w-[580px]'
             />
           </div>
-          <div className='p-1.5'>
+          <div className='p-1'>
             <SearchIcon />
           </div>
         </button>
@@ -105,6 +105,7 @@ const Header: React.FC = () => {
           } text-sm z-10 font-extralight divide-y divide-slate-700 border border-black-nav absolute`}
         >
           {searchedMovies &&
+            searchText &&
             searchedMovies.slice(0, 7).map((item: any) => (
               <div
                 key={item.id}
@@ -123,6 +124,11 @@ const Header: React.FC = () => {
                 </div>
               </div>
             ))}
+          {searchText && searchedMovies.length === 0 && (
+            <div className='p-2 h-12 flex group bg-black-nav w-full gap-2 hover:bg-black-nav-hover hover:cursor-pointer'>
+              <p className="left-12 relative mt-1 font-medium text-search">See all result for "{searchText}"</p>
+            </div>
+          )}
         </div>
       </div>
 
