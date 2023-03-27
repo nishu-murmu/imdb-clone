@@ -6,15 +6,17 @@ const SignIn: React.FC = () => {
     <>
       <div
         className='mx-auto container  justify-center flex my-3'
-        id='register-heading'
+        id='sign-in-heading'
       >
-        <div className='flex items-center flex-row mx-auto'>
-          <LogoImage width='107px' height='57px' />
-        </div>
+        <Link to={"/"}>
+          <div className='flex items-center hover:cursor-pointer  flex-row mx-auto'>
+            <LogoImage width='107px' height='57px' />
+          </div>
+        </Link>
       </div>
       <div
         id='register-form'
-        className='mx-auto  w-[348px] h-[381px] border-1 border-solid border-gray-200 rounded-md container flex justify-center'
+        className='mx-auto  mb-6   w-[348px] mb-2   h-[381px] border-1 border-solid border-gray-200 rounded-md container flex justify-center'
       >
         <form action='' className='px-4 py-3 text-sm mt-2 w-full'>
           <h1 className='font-normal leading-3 text-3xl'>Sign In</h1>
@@ -63,9 +65,10 @@ const SignIn: React.FC = () => {
           </Link>
         </form>
       </div>
+
       <div
         id='register-footer'
-        className='text-sm mx-auto container flex flex-col mt-2 gap-y-2 place-items-center  justify-center '
+        className='  pb-20 text-sm border-t-2 pt-4 mx-auto container flex flex-col mt-2 gap-y-2 place-items-center  justify-center '
       >
         <div className='flex gap-x-2'>
           <a href='#' className='text-blue-800'>

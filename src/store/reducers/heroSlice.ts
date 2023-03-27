@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { HeroSliceProps } from "../../utils/types"
+import { fetchedArrayProps } from "../../utils/types"
 
-const initialState: HeroSliceProps = {
+const initialState: fetchedArrayProps = {
   upcomingMovies: [],
   trendingMedia: [],
 }
@@ -14,7 +14,6 @@ export const HeroSlice = createSlice({
       state.upcomingMovies = action.payload
     },
     setTrendingMedia: (state, action) => {
-      console.log({ state, action })
       state.trendingMedia = action.payload
     },
   },

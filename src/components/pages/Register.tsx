@@ -8,9 +8,11 @@ const Register: React.FC = () => {
         className='mx-auto container  justify-center flex my-3'
         id='register-heading'
       >
-        <div className='flex items-center flex-row mx-auto'>
-          <LogoImage width='107px' height='57px' />
-        </div>
+        <Link to={"/"}>
+          <div className='flex items-center hover:cursor-pointer  flex-row mx-auto'>
+            <LogoImage width='107px' height='57px' />
+          </div>
+        </Link>
       </div>
       <div
         id='register-form'

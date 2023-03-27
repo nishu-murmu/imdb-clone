@@ -6,9 +6,10 @@ export const getSearchMovie = (params: string): Promise<[]> | [] => {
   return fetchApi(url)
 }
 
-export const getPlayingMovies = (): Promise<[]> | [] => {
-  let url: string = ""
-  return fetchApi(url)
+export const getPopularMovies = (): Promise<[]> | [] => {
+  return fetchApi(
+    `https://api.themoviedb.org/3/movie/popular?api_key=8ef0179a2b8e5afe1139a3e76972056b&language=en-US&page=1`
+  )
 }
 
 export const getUpcomingMovies = (): Promise<[]> | [] => {

@@ -30,6 +30,7 @@ module.exports = {
         light: {
           50: "#f7f8fa",
           100: "#e7e9ec",
+          200: "#F8F8F8",
         },
         black: {
           default: "#000",
@@ -37,6 +38,10 @@ module.exports = {
           "nav-hover": "#252525",
           overlay: "#1e1e1f",
         },
+        dark: {
+          200: "#DFDFDF",
+        },
+
         yellow: {
           default: "#F5C518",
           hover: "#e2b717",

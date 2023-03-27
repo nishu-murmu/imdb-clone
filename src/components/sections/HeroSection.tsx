@@ -38,14 +38,13 @@ const HeroSection: React.FC = () => {
       const trendingResult = await getTrendingMedia()
       dispatch(HeroActions.setUpcomingMovies(upComingResult))
       dispatch(HeroActions.setTrendingMedia(trendingResult))
-      console.log(trendingMedia)
     }
     UpcomingMovies()
   }, [])
 
   return (
     <div className='bg-black-default' id='hero-section'>
-      <div className='container mt-4 mx-auto grid grid-cols-2 gap-2 text-white items-center bg-black-nav h-[563px]'>
+      <div className='container mx-auto grid grid-cols-2 gap-2 text-white items-center bg-black-nav h-[563px]'>
         <Swiper
           slidesPerView={1}
           spaceBetween={30}
