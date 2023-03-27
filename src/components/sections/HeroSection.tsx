@@ -3,19 +3,19 @@ import {
   PlaySolidIcon,
   RightChevronIcon,
   StarIcon,
-} from "./Icons"
+} from "../Icons"
 import { Swiper, SwiperSlide } from "swiper/react"
-import MovieCard from "./MovieCard"
+import MovieCard from "../CommonComponents/MovieCard"
 import {
   getUpcomingMovies,
   getPlayingMovies,
   getTrendingMedia,
-} from "../utils/apiFunctions"
+} from "../../utils/apiFunctions"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../utils/types"
-import { HeroActions } from "../store/reducers/heroSlice"
-import { Autoplay, Pagination, Navigation } from "swiper"
+import { RootState } from "../../utils/types"
+import { HeroActions } from "../../store/reducers/heroSlice"
+import { Pagination, Navigation } from "swiper"
 // Import Swiper styles
 import "swiper/css"
 import "swiper/css/pagination"

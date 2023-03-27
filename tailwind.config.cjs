@@ -9,6 +9,12 @@ module.exports = {
       },
     },
     extend: {
+      borderWidth: {
+        1: "1px",
+      },
+      boxShadow: {
+        input: "0 0 3px 2px rgba(228,121,17,.5)",
+      },
       fontSize: {
         title: ["20px"],
         search: ["16px"],
@@ -21,6 +27,10 @@ module.exports = {
         roboto: ["Roboto", "sans-serif"],
       },
       colors: {
+        light: {
+          50: "#f7f8fa",
+          100: "#e7e9ec",
+        },
         black: {
           default: "#000",
           nav: "#121212",

@@ -5,7 +5,7 @@ import {
   TiktokIcon,
   TwitterIcon,
   YoutubeIcon,
-} from "./Icons"
+} from "../Icons"
 
 const Footer: React.FC = () => {
   return (

@@ -4,16 +4,13 @@ import {
   ArrowDownFillIcon,
   BookMarkPlusIcon,
   HamBurgerIcon,
-  FilmIcon,
-  TelevisionIcon,
-  CollectionPlayIcon,
-  CrossIcon,
   SearchIcon,
-} from "../components/Icons"
-import { LogoImage } from "../components/Images"
-import { getSearchMovie } from "../utils/apiFunctions"
-import { HeaderActions } from "../store/reducers/headerSlice"
-import { RootState } from "../utils/types"
+} from "../Icons"
+import { LogoImage } from "../Images"
+import { getSearchMovie } from "../../utils/apiFunctions"
+import { HeaderActions } from "../../store/reducers/headerSlice"
+import { RootState } from "../../utils/types"
+import { Link } from "react-router-dom"
 
 const Header: React.FC = () => {
   const dispatch = useDispatch()
@@ -126,7 +123,9 @@ const Header: React.FC = () => {
             ))}
           {searchText && searchedMovies.length === 0 && (
             <div className='p-2 h-12 flex group bg-black-nav w-full gap-2 hover:bg-black-nav-hover hover:cursor-pointer'>
-              <p className="left-12 relative mt-1 font-medium text-search">See all result for "{searchText}"</p>
+              <p className='left-12 relative mt-1 font-medium text-search'>
+                See all result for "{searchText}"
+              </p>
             </div>
           )}
         </div>
@@ -151,7 +150,7 @@ const Header: React.FC = () => {
         className='rounded-md px-4 py-2 hover:bg-black-nav-hover'
         id='sign-in'
       >
-        Sign In
+        <Link to={"/register"}>Sign In</Link>
       </button>
       <button
         id='en'
