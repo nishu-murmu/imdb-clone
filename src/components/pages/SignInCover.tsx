@@ -22,17 +22,17 @@ const SignInCover: React.FC<LayoutProps> = () => {
                 <button className='border-1 border-gray-200 rounded py-2 px-4 flex gap-x-4 text-center w-full'>
                   <LogoImage width='25px' height='25px' /> Sign in with IMDb
                 </button>
-                <button className='border-1 border-gray-200 rounded py-2 px-4 flex gap-x-4 justify-center flex w-full'>
+                <button className='border-1 border-gray-200 rounded py-2 px-4  gap-x-4 justify-center flex w-full'>
                   {" "}
                   Sign in with Amazon
                 </button>
-                <button className='border-1 border-gray-200 rounded py-2 px-4 flex gap-x-4 justify-center flex w-full'>
+                <button className='border-1 border-gray-200 rounded py-2 px-4  gap-x-4 justify-center flex w-full'>
                   Sign in with Google
                 </button>
-                <button className='border-1 border-gray-200 rounded py-2 px-4 flex gap-x-4 justify-center flex w-full'>
+                <button className='border-1 border-gray-200 rounded py-2 px-4  gap-x-4 justify-center flex w-full'>
                   Sign in with Amazon
                 </button>
-                <button className='border-1 border-gray-200 rounded py-2 px-4 flex gap-x-4 justify-center flex w-full'>
+                <button className='border-1 border-gray-200 rounded py-2 px-4  gap-x-4 justify-center flex w-full'>
                   Sign in with Facebook
                 </button>
               </div>
@@ -44,7 +44,7 @@ const SignInCover: React.FC<LayoutProps> = () => {
               <Link to={"/register"}>
                 <button
                   id='create-account'
-                  className='border-1 bg-yellow-default text-black-default font-semibold  rounded py-2 px-4 flex gap-x-4 justify-center flex w-full'
+                  className='border-1 bg-yellow-default text-black-default font-semibold  rounded py-2 px-4  gap-x-4 justify-center flex w-full'
                 >
                   Create a New Account
                 </button>

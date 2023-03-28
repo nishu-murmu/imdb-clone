@@ -1,16 +1,70 @@
 import React, { useEffect } from "react"
-import { ShareIcon } from "../Icons"
+import moment from "moment"
+import {
+  BookMarkCheckFillIcon,
+  BookMarkPlusIcon,
+  ShareIcon,
+  StarIcon,
+} from "../Icons"
 import Select from "react-select"
 import MainLayout from "../layouts/MainLayout"
-import { fetchedDataProps, filterOptions, RootState } from "../../utils/types"
+import {
+  fetchedArrayProps,
+  fetchedDataProps,
+  filterOption,
+  filterOptions,
+  RootState,
+} from "../../utils/types"
 import { ListActions } from "../../store/reducers/listSlice"
 import { useSelector, useDispatch } from "react-redux"
 import { getPopularMovies } from "../../utils/apiFunctions"
+import { Link } from "react-router-dom"
 const List: React.FC = () => {
   const dispatch = useDispatch()
+  const baseUrl = import.meta.env.VITE_BASE_URL
+  const selectValue = useSelector((state: RootState) => state.list?.selectValue)
   const popularMovies = useSelector(
     (state: RootState) => state.list?.popularMovies
   )
+
+  const filterListHandler = (
+    data: any,
+    filterParam: string | undefined
+  ): fetchedArrayProps[] => {
+    data = data.map((item: fetchedDataProps) => {
+      return {
+        ...item,
+        release_date: new Date(item.release_date),
+      }
+    })
+
+    let result = [...data].sort((a: any, b: any): any => {
+      if (filterParam == "vote_average")
+        return b?.vote_average - a?.vote_average
+
+      if (filterParam == "popularity") return b?.popularity - a?.popularity
+
+      if (filterParam == "vote_count") return b?.vote_count - a?.vote_count
+      if (filterParam == "release_date")
+        return b?.release_date - a?.release_date
+    })
+
+    result = result.map((item: fetchedDataProps) => {
+      return {
+        ...item,
+        release_date: moment(item.release_date).format("YYYY-MM-DD"),
+      }
+    })
+    return result
+  }
+
+  const onSelectChangeHandler = (option: filterOption | null) => {
+    dispatch(ListActions.setSelectValue(option?.value))
+
+    const filterArray = filterListHandler(popularMovies, option?.value)
+    dispatch(ListActions.getPopularMovies(filterArray))
+  }
+
   useEffect(() => {
     const getPopularMovieList = async () => {
       const result = await getPopularMovies()
@@ -21,8 +75,8 @@ const List: React.FC = () => {
 
   return (
     <MainLayout>
-      <div className='w-full bg-gradient-to-b from-light-100 to-light-50'>
-        <div className='grid grid-cols-6 h-screen container mx-auto  bg-light-200 w-[1008px]'>
+      <div className='w-full  bg-gradient-to-b from-light-100 to-light-50'>
+        <div className='grid grid-cols-6 h-auto container mx-auto  bg-light-200 w-[1008px]'>
           <div
             id='top-chart'
             className='col-span-4 px-6 py-4 border-r-2 border-gray-500'
@@ -51,27 +105,73 @@ const List: React.FC = () => {
               <div className='flex gap-x-2'>
                 <div className='mt-1'>Sort by:</div>
                 <div className='w-[190px]'>
-                  <Select name='color' options={filterOptions} />
+                  <Select
+                    onChange={onSelectChangeHandler}
+                    name='Filters'
+                    defaultValue={selectValue}
+                    options={filterOptions}
+                  />
                 </div>
                 <div></div>
               </div>
             </div>
 
-            <div className='' id='top-table'>
-              <table className='text-black-overlay'>
-                <thead>
+            <div className='mt-2' id='top-table'>
+              <table className='text-black-overlay table '>
+                <thead className='gap-x-4'>
                   <tr>
-                    <th>Rank & Title</th>
-                    <th>IMDb Rating</th>
-                    <th>Your Rating</th>
+                    <th className='px-2'>#</th>
+                    <th className='px-2'>Rank & Title</th>
+                    <th className='px-2'>IMDb Rating</th>
+                    <th className='px-2'>Add to watchlist</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {popularMovies?.slice(0, 10).map((item: fetchedDataProps) => (
-                    <tr>
-                      <td>{item.original_title}</td>
-                      <td>{item.vote_average}</td>
-                      <td>{item.release_date}</td>
+                <tbody className='gap-y-10'>
+                  {popularMovies?.map((item: fetchedDataProps) => (
+                    <tr className='my-3'>
+                      <td>
+                        <div className='h-20 w-16 bg-green-500'>
+                          <img
+                            className='w-full object-cover'
+                            src={`${baseUrl}${item.poster_path}`}
+                            alt=''
+                          />
+                        </div>
+                      </td>
+                      <td className='px-2'>
+                        <div className='flex gap-x-2'>
+                          <span>
+                            {popularMovies.findIndex(
+                              (obj) =>
+                                obj.original_title === item.original_title
+                            ) + 1}
+                            .
+                          </span>
+                          <Link to={"/"}>
+                            <span className='text-blue-800 hover:underline'>
+                              {item.original_title}
+                            </span>
+                          </Link>
+                          <span>{`(${item.release_date.split("-")[0]})`}</span>
+                        </div>
+                      </td>
+                      <td className='text-center'>
+                        <div className='flex gap-x-1 justify-center'>
+                          <div>
+                            <StarIcon strokeColor='gray' className='w-5 h-5' />
+                          </div>
+                          <div>{item.vote_average}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div className='flex justify-center hover:cursor-pointer'>
+                          <BookMarkCheckFillIcon
+                            fillColor='green'
+                            width='20'
+                            height='20'
+                          />
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

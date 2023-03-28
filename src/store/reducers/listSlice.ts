@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchedArrayProps } from "../../utils/types"
+import { ListSliceProps } from "../../utils/types"
 
-const initialState: fetchedArrayProps = {
+const initialState: ListSliceProps = {
   popularMovies: [],
+  selectValue: null,
 }
 
 export const ListSlice = createSlice({
@@ -10,8 +11,10 @@ export const ListSlice = createSlice({
   initialState,
   reducers: {
     getPopularMovies: (state, action) => {
-            console.log({state,action})
       state.popularMovies = action.payload
+    },
+    setSelectValue: (state, action) => {
+      state.selectValue = action.payload
     },
   },
 })

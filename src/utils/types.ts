@@ -1,10 +1,3 @@
-export interface HeaderSliceProps extends fetchedArrayProps {
-  searchText: string
-  isDropDown: boolean
-  isMenu: boolean
-  dropdownRef: any
-}
-
 export interface fetchedDataProps {
   id: number
   poster_path: string
@@ -25,16 +18,32 @@ export interface fetchedArrayProps {
   popularMovies?: fetchedDataProps[]
   trendingMedia?: fetchedDataProps[]
 }
-export interface RootState extends fetchedDataProps{
+
+export interface HeaderSliceProps extends fetchedArrayProps {
+  searchText: string
+  isDropDown: boolean
+  isMenu: boolean
+  dropdownRef: any
+}
+
+export interface ListSliceProps extends fetchedArrayProps {
+  selectValue: filterOption | null
+}
+
+export interface RootState extends fetchedDataProps {
   header: HeaderSliceProps
   hero: fetchedArrayProps
-  list: fetchedArrayProps
+  list: ListSliceProps
+  auth: UserProps
 }
+
 export interface IconsProps {
   className?: string
   width?: string
   height?: string
   strokeWidth?: string
+  fillColor?: string
+  strokeColor?: string
   isFillColor?: boolean
 }
 
@@ -48,6 +57,7 @@ export interface LayoutProps {
   children?: React.ReactNode
   isSignInCover?: boolean
 }
+
 export interface filterOption {
   readonly value: string
   readonly label: string
@@ -55,9 +65,23 @@ export interface filterOption {
   readonly isDisabled?: boolean
   readonly isSearchable?: boolean
 }
+
 export const filterOptions: readonly filterOption[] = [
-  { value: "ranking", label: "Ranking" },
-  { value: "imdb_rating", label: "IMDb Rating" },
+  { value: "vote_average", label: "IMDb Rating" },
+  { value: "popularity", label: "Popularity" },
   { value: "release_date", label: "Release Date" },
-  { value: "no_of_ratings", label: "No Of Ratings" },
+  { value: "vote_count", label: "No Of Ratings" },
 ]
+
+export type UserProps = {
+  email: string
+  password: string
+  retypedPassword?: string
+}
+export interface AuthContextProps {
+  currentUser?: string
+  signOut?({email, password}: UserProps): void
+  signIn?({email, password}: UserProps): void
+  register?({email, password}: UserProps): void
+  setCurrentUser?(currentUser: string): void
+}
