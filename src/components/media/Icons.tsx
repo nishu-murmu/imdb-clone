@@ -1,4 +1,4 @@
-import { IconsProps } from "../utils/types"
+import { IconsProps } from "../../utils/types"
 
 export const RightChevronIcon = (props: IconsProps) => {
   return (

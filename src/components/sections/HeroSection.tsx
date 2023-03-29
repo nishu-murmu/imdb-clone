@@ -3,12 +3,11 @@ import {
   PlaySolidIcon,
   RightChevronIcon,
   StarIcon,
-} from "../Icons"
+} from "../media/Icons"
 import { Swiper, SwiperSlide } from "swiper/react"
 import MovieCard from "../CommonComponents/MovieCard"
 import {
   getUpcomingMovies,
-  getPlayingMovies,
   getTrendingMedia,
 } from "../../utils/apiFunctions"
 import { useEffect } from "react"

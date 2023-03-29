@@ -1,10 +1,10 @@
-import HomePage from "./components/pages/Home"
-import Register from "./components/pages/Register"
-import SignIn from "./components/pages/SignIn"
+import HomePage from "./pages/Home"
+import Register from "./pages/Register"
+import SignIn from "./pages/SignIn"
 import { Routes, Route } from "react-router"
-import Preview from "./components/pages/Preview"
-import List from "./components/pages/List"
-import SignInCover from "./components/pages/SignInCover"
+import Preview from "./pages/Preview"
+import List from "./pages/List"
+import SignInCover from "./pages/SignInCover"
 
 function App() {
   return (

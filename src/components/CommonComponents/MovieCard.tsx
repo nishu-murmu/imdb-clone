@@ -1,5 +1,5 @@
-import { PlusIcon } from "../Icons"
-import { BookMarkImage } from "../Images"
+import { PlusIcon } from "../media/Icons"
+import { BookMarkImage } from "../media/Images"
 
 const MovieCard = (props: any) => {
   return (

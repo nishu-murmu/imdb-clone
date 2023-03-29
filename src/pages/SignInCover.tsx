@@ -1,8 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { LayoutProps } from "../../utils/types"
-import { LogoImage } from "../Images"
-import MainLayout from "../layouts/MainLayout"
+import { LayoutProps } from "../utils/types"
+import { LogoImage } from "../components/media/Images"
+import MainLayout from "../components/layouts/MainLayout"
 
 const SignInCover: React.FC<LayoutProps> = () => {
   const isSignInCover = true

@@ -5,8 +5,8 @@ import {
     BookMarkPlusIcon,
     HamBurgerIcon,
     SearchIcon,
-} from "../Icons"
-import { LogoImage } from "../Images"
+} from "../media/Icons"
+import { LogoImage } from "../media/Images"
 import { getLatestMovies, getSearchMovie, getUpcomingMovies, getTrendingMedia, getPopularMovies } from "../../utils/apiFunctions"
 import { HeaderActions } from "../../store/reducers/headerSlice"
 import { RootState } from "../../utils/types"

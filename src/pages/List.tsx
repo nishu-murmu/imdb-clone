@@ -5,19 +5,19 @@ import {
   BookMarkPlusIcon,
   ShareIcon,
   StarIcon,
-} from "../Icons"
+} from "../components/media/Icons"
 import Select from "react-select"
-import MainLayout from "../layouts/MainLayout"
+import MainLayout from "../components/layouts/MainLayout"
 import {
   fetchedArrayProps,
   fetchedDataProps,
   filterOption,
   filterOptions,
   RootState,
-} from "../../utils/types"
-import { ListActions } from "../../store/reducers/listSlice"
+} from "../utils/types"
+import { ListActions } from "../store/reducers/listSlice"
 import { useSelector, useDispatch } from "react-redux"
-import { getPopularMovies } from "../../utils/apiFunctions"
+import { getPopularMovies } from "../utils/apiFunctions"
 import { Link } from "react-router-dom"
 const List: React.FC = () => {
   const dispatch = useDispatch()

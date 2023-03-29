@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { LogoImage } from "../Images"
+import { LogoImage } from "../components/media/Images"
 const Register: React.FC = () => {
   return (
     <>

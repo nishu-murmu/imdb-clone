@@ -7,7 +7,7 @@ import {
   TiktokIcon,
   TwitterIcon,
   YoutubeIcon,
-} from "../Icons"
+} from "../media/Icons"
 
 const Footer: React.FC<LayoutProps> = (props) => {
   return (

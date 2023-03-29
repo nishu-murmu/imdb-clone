@@ -1,4 +1,4 @@
-import { IconsProps, ImageProps } from "./../utils/types.d"
+import { IconsProps, ImageProps } from "../../utils/types"
 
 export const LogoImage = (props: IconsProps) => {
   return (
