@@ -2,17 +2,23 @@ import React, { useContext, useState } from "react";
 import { AuthContextProps, LayoutProps, UserProps } from "../utils/types";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import {  SignOutUser, userStateListener} from "../utils/firebase/firebase";
-import {User} from 'firebase/auth'
+import {
+  registerUser,
+  SignOutUser,
+  signInUser,
+  userStateListener,
+} from "../utils/firebase/firebase";
+import { User } from "firebase/auth";
 
-const AuthContext = React.createContext<AuthContextProps>({
+export const AuthContext = React.createContext<AuthContextProps>({
   signOut: () => {},
-  signIn: () => {},
-  register: () => {},
+  signIn: async ({ email, password }: UserProps) => {},
+  register: async ({ email, password }: UserProps) => {},
+
   currentUser: null,
 });
 
-const AuthProvider = ({children}: LayoutProps) => {
+export const AuthProvider = ({ children }: LayoutProps) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
@@ -31,11 +37,20 @@ const AuthProvider = ({children}: LayoutProps) => {
     navigate("/");
   };
 
+  const signIn = ({ email, password }: UserProps) => {
+    signInUser(email, password);
+  };
+
+  const register = ({ email, password }: UserProps) => {
+    registerUser(email, password);
+  };
+
   const value = {
     currentUser,
     setCurrentUser,
     signOut,
+    signIn,
+    register,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-export { AuthProvider, AuthContext };

@@ -1,3 +1,5 @@
+import { User } from "firebase/auth"
+
 export interface fetchedDataProps {
   id: number
   poster_path: string
@@ -30,11 +32,14 @@ export interface ListSliceProps extends fetchedArrayProps {
   selectValue: filterOption | null
 }
 
+export interface authSliceProps extends UserProps{
+isSubmitted: boolean
+}
 export interface RootState extends fetchedDataProps {
   header: HeaderSliceProps
   hero: fetchedArrayProps
   list: ListSliceProps
-  auth: UserProps
+  auth: authSliceProps
 }
 
 export interface IconsProps {
@@ -74,14 +79,14 @@ export const filterOptions: readonly filterOption[] = [
 ]
 
 export type UserProps = {
+  name?: string
   email: string
   password: string
   retypedPassword?: string
 }
 export interface AuthContextProps {
-  currentUser?: string
-  signOut?({email, password}: UserProps): void
-  signIn?({email, password}: UserProps): void
-  register?({email, password}: UserProps): void
-  setCurrentUser?(currentUser: string): void
+  signOut: () => void;
+  signIn: ({ email, password }: UserProps) => any;
+  register: ({ email, password }: UserProps) => any;
+  currentUser: User | null;
 }
