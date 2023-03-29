@@ -34,6 +34,7 @@ export interface ListSliceProps extends fetchedArrayProps {
 
 export interface authSliceProps extends UserProps{
 isSubmitted: boolean
+notFound: string
 }
 export interface RootState extends fetchedDataProps {
   header: HeaderSliceProps
@@ -79,7 +80,7 @@ export const filterOptions: readonly filterOption[] = [
 ]
 
 export type UserProps = {
-  name?: string
+  name: string
   email: string
   password: string
   retypedPassword?: string
@@ -87,6 +88,6 @@ export type UserProps = {
 export interface AuthContextProps {
   signOut: () => void;
   signIn: ({ email, password }: UserProps) => any;
-  register: ({ email, password }: UserProps) => any;
+  register: ({ name, email, password }: UserProps) => any;
   currentUser: User | null;
 }

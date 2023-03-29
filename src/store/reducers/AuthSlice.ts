@@ -7,6 +7,7 @@ const initialState: authSliceProps = {
   password: "",
   retypedPassword: "",
   isSubmitted: false,
+  notFound:''
 };
 
 export const AuthSlice = createSlice({
@@ -24,6 +25,9 @@ export const AuthSlice = createSlice({
     setIsSubmitted: (state, action) => {
       state.isSubmitted = action.payload;
     },
+    setNotFound: (state, action) => {
+      state.notFound = action.payload;
+    }
   },
 });
 
