@@ -28,19 +28,25 @@ export interface HeaderSliceProps extends fetchedArrayProps {
   dropdownRef: any
 }
 
-export interface ListSliceProps extends fetchedArrayProps {
-  selectValue: filterOption | null
+export interface HeroSliceProps extends fetchedArrayProps {
+  selectedItems?: [];
+  cardId: string | number;
 }
 
-export interface authSliceProps extends UserProps{
+export interface ListSliceProps extends fetchedArrayProps {
+  selectValue: filterOption | null
+
+}
+
+export interface AuthSliceProps extends UserProps{
 isSubmitted: boolean
 notFound: string
 }
 export interface RootState extends fetchedDataProps {
   header: HeaderSliceProps
-  hero: fetchedArrayProps
+  hero: HeroSliceProps
   list: ListSliceProps
-  auth: authSliceProps
+  auth: AuthSliceProps
 }
 
 export interface IconsProps {
@@ -57,6 +63,7 @@ export interface ImageProps {
   className?: string
   width?: string
   height?: string
+  fillColor?: string
 }
 
 export interface LayoutProps {

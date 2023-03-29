@@ -12,9 +12,8 @@ import { User } from "firebase/auth";
 
 export const AuthContext = React.createContext<AuthContextProps>({
   signOut: () => {},
-  signIn: async ({ email, password }: UserProps) => {},
-  register: async ({ email, password }: UserProps) => {},
-
+  signIn: async () => {},
+  register: async () => {},
   currentUser: null,
 });
 
@@ -38,11 +37,13 @@ export const AuthProvider = ({ children }: LayoutProps) => {
   };
 
   const signIn = ({ email, password }: UserProps) => {
-    signInUser(email, password);
+    navigate("/");
+    return signInUser(email, password);
   };
 
-  const register = ({ email, password }: UserProps) => {
-    registerUser(email, password);
+  const register = ({name, email, password }: UserProps) => {
+    navigate("/");
+    return registerUser(name,email, password);
   };
 
   const value = {
