@@ -6,14 +6,14 @@ export interface fetchedDataProps {
   backdrop_path: string
   release_date: string
   original_title: string
-  media_type?: string
+  media_type: string
   popularity: number
-  overview?: string
+  overview: string
   title: string
-  vote_average?: number
-  vote_count?: number
-  original_name?: string
-  name?: string
+  vote_average: number
+  vote_count: number
+  original_name: string
+  name: string
 }
 
 export interface fetchedArrayProps {
@@ -32,7 +32,7 @@ export interface HeaderSliceProps extends fetchedArrayProps {
 }
 
 export interface HeroSliceProps extends fetchedArrayProps {
-  selectedItems?: [];
+  selectedItems?: number[];
   cardId: number;
 }
 
