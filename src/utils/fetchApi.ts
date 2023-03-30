@@ -4,7 +4,8 @@ export const fetchApi = (url: string): Promise<[]> | [] => {
       return response.json()
     })
     .then((data) => {
-      return data.results
+      if(!data.results) return data
+      else return data.results
     })
     .catch((error) => {
       throw error

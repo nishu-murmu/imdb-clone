@@ -33,7 +33,7 @@ export interface HeaderSliceProps extends fetchedArrayProps {
 
 export interface HeroSliceProps extends fetchedArrayProps {
   selectedItems?: [];
-  cardId: string | number;
+  cardId: number;
 }
 
 export interface ListSliceProps extends fetchedArrayProps {
@@ -45,11 +45,16 @@ export interface AuthSliceProps extends UserProps{
 isSubmitted: boolean
 notFound: string
 }
+
+export interface CardSliceProps extends fetchedArrayProps {
+  mediaId: number;
+}
 export interface RootState extends fetchedDataProps {
   header: HeaderSliceProps
   hero: HeroSliceProps
   list: ListSliceProps
   auth: AuthSliceProps
+  movieCard: CardSliceProps
 }
 
 export interface IconsProps {

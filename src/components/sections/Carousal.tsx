@@ -8,11 +8,15 @@ import MovieCard from "../CommonComponents/MovieCard";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../utils/types";
 import { useEffect } from "react";
-import { getPopularMovies, getLatestMovies, getPopularShows } from "../../utils/apiFunctions";
+import {
+  getPopularMovies,
+  getPopularShows,
+  getMovieDetails,
+} from "../../utils/apiFunctions";
 import { ListActions } from "../../store/reducers/listSlice";
 
 const Carousal: React.FC = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const popularMovies = useSelector(
     (state: RootState) => state.list.popularMovies
   );
@@ -22,16 +26,16 @@ const Carousal: React.FC = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
+    // document.getElementsByClassName("swiper-pagination")?.classList.add("hidden");
     const getPopularMovieList = async () => {
       const result = await getPopularMovies();
-      const moviesResult = await getPopularShows()
+      const moviesResult = await getPopularShows();
+      const movie = await getMovieDetails(804150);
       dispatch(ListActions.getPopularMovies(result));
       dispatch(ListActions.getPopularShows(moviesResult));
     };
     getPopularMovieList();
-
   }, []);
-
 
   return (
     <div className="bg-black-default text-white py-6" id="carousal-section">
@@ -49,10 +53,8 @@ const Carousal: React.FC = () => {
               delay: 2500,
               disableOnInteraction: false,
             }}
-            pagination={{
-              clickable: true,
-            }}
             navigation={true}
+            loop={true}
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
           >
@@ -61,6 +63,7 @@ const Carousal: React.FC = () => {
                 <MovieCard
                   key={movie.id}
                   title={movie.original_name}
+                  cardId={movie.id}
                   isCarousal={true}
                   ratings={movie.vote_average}
                   imgUrl={`${baseUrl}${movie.poster_path}`}
@@ -68,22 +71,12 @@ const Carousal: React.FC = () => {
               ))}
             </SwiperSlide>
             <SwiperSlide className="flex gap-x-4">
-              {popularShows?.slice(0, 7).map((movie) => (
+              {popularShows?.slice(13, 20).map((movie) => (
                 <MovieCard
                   isCarousal={true}
+                  cardId={movie.id}
                   title={movie.original_name}
                   key={movie.id}
-                  ratings={movie.vote_average}
-                  imgUrl={`${baseUrl}${movie.poster_path}`}
-                />
-              ))}
-            </SwiperSlide>
-            <SwiperSlide className="flex gap-x-4">
-              {popularShows?.slice(0, 7).map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  title={movie.original_name}
-                  isCarousal={true}
                   ratings={movie.vote_average}
                   imgUrl={`${baseUrl}${movie.poster_path}`}
                 />
@@ -97,12 +90,10 @@ const Carousal: React.FC = () => {
           <Swiper
             spaceBetween={30}
             centeredSlides={true}
-            // autoplay={{
-            //   delay: 2500,
-            //   disableOnInteraction: false,
-            // }}
-            pagination={{
-              clickable: true,
+            loop={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
             }}
             navigation={true}
             modules={[Autoplay, Pagination, Navigation]}
@@ -112,6 +103,7 @@ const Carousal: React.FC = () => {
               {popularMovies?.slice(0, 7).map((movie) => (
                 <MovieCard
                   key={movie.id}
+                  cardId={movie.id}
                   isCarousal={true}
                   title={movie.title}
                   ratings={movie.vote_average}
@@ -120,27 +112,18 @@ const Carousal: React.FC = () => {
               ))}
             </SwiperSlide>
             <SwiperSlide className="flex gap-x-4">
-              {popularMovies?.slice(0, 7).map((movie) => (
+              {popularMovies?.slice(7, 14).map((movie) => (
                 <MovieCard
                   key={movie.id}
                   title={movie.title}
+                  cardId={movie.id}
                   ratings={movie.vote_average}
                   isCarousal={true}
                   imgUrl={`${baseUrl}${movie.poster_path}`}
                 />
               ))}
             </SwiperSlide>
-            <SwiperSlide className="flex gap-x-4">
-              {popularMovies?.slice(0, 7).map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  isCarousal={true}
-                  title={movie.title}
-                  ratings={movie.vote_average}
-                  imgUrl={`${baseUrl}${movie.poster_path}`}
-                />
-              ))}
-            </SwiperSlide>
+            <div className="swiper-pagination swiper-pagination-bullets hidden"></div>
           </Swiper>
         </div>
       </div>
