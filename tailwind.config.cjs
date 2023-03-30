@@ -41,7 +41,9 @@ module.exports = {
         dark: {
           200: "#DFDFDF",
         },
-
+        blue:{
+          150: "#518DD8",
+        },
         yellow: {
           default: "#F5C518",
           hover: "#e2b717",

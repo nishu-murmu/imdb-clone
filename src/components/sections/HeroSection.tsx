@@ -3,53 +3,51 @@ import {
   PlaySolidIcon,
   RightChevronIcon,
   StarIcon,
-} from "../media/Icons"
-import { Swiper, SwiperSlide } from "swiper/react"
-import MovieCard from "../CommonComponents/MovieCard"
-import {
-  getUpcomingMovies,
-  getTrendingMedia,
-} from "../../utils/apiFunctions"
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../../utils/types"
-import { HeroActions } from "../../store/reducers/heroSlice"
-import { Pagination, Navigation } from "swiper"
+} from "../media/Icons";
+import { Swiper, SwiperSlide } from "swiper/react";
+import MovieCard from "../CommonComponents/MovieCard";
+import { getUpcomingMovies, getTrendingMedia, getMovieDetails } from "../../utils/apiFunctions";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../utils/types";
+import { HeroActions } from "../../store/reducers/heroSlice";
+import { Pagination, Navigation } from "swiper";
 // Import Swiper styles
-import "swiper/css"
-import "swiper/css/pagination"
-import "swiper/css/navigation"
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { useNavigate } from "react-router";
+import useSelectMedia from "../../utils/customHooks/useSelectMedia";
+import useOnClickPreview from "../../utils/customHooks/useOnClickPreview";
 
 const HeroSection: React.FC = () => {
-  const dispatch = useDispatch()
 
-  const baseUrl = import.meta.env.VITE_BASE_URL
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const { selectHandler } = useSelectMedia();
+  const {onClickPreviewHandler} = useOnClickPreview()
+
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const upComingMovies = useSelector(
     (state: RootState) => state.hero.upcomingMovies
-  )
+  );
   const trendingMedia = useSelector(
     (state: RootState) => state.hero.trendingMedia
-  )
-  const cardId  = useSelector((state: RootState) => state.hero.cardId)
-  const selectedItems = useSelector((state: RootState) => state.hero.selectedItems)
-
-  const selectHandler = (id: any) => {
-    if (selectedItems?.includes(id)) {
-      dispatch(HeroActions.setSelectedItems(selectedItems.filter((i: any) => i !== id)))
-    } else {
-      dispatch(HeroActions.setSelectedItems([...selectedItems as [], id]));
-    }
-  }
+  );
+  const cardId = useSelector((state: RootState) => state.hero.cardId);
+  const selectedItems = useSelector(
+    (state: RootState) => state.hero.selectedItems
+  );
 
   useEffect(() => {
     const UpcomingMovies = async () => {
-      const upComingResult = await getUpcomingMovies()
-      const trendingResult = await getTrendingMedia()
-      dispatch(HeroActions.setUpcomingMovies(upComingResult))
-      dispatch(HeroActions.setTrendingMedia(trendingResult))
-    }
-    UpcomingMovies()
-  }, [])
+      const upComingResult = await getUpcomingMovies();
+      const trendingResult = await getTrendingMedia();
+      dispatch(HeroActions.setUpcomingMovies(upComingResult));
+      dispatch(HeroActions.setTrendingMedia(trendingResult));
+    };
+    UpcomingMovies();
+  }, []);
 
   return (
     <div className="bg-black-default" id="hero-section">
@@ -58,9 +56,6 @@ const HeroSection: React.FC = () => {
           slidesPerView={1}
           spaceBetween={30}
           loop={true}
-          pagination={{
-            clickable: true,
-          }}
           navigation={true}
           modules={[Pagination, Navigation]}
           className="mySwiper w-full relative col-end-2 flex flex-row py-1 h-full "
@@ -69,8 +64,16 @@ const HeroSection: React.FC = () => {
             <SwiperSlide>
               <div className="relative w-full h-full">
                 <img
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover hover:cursor-pointer"
                   src={`${baseUrl}${item.backdrop_path}`}
+                  onClick={() =>
+                    {
+                      onClickPreviewHandler({
+                        mediaType: item.media_type,
+                        cardId: item.id,
+                      });
+                    }
+                  }
                 />
 
                 <div className="swiper-container">
@@ -87,7 +90,7 @@ const HeroSection: React.FC = () => {
                     cardId={item.id}
                     onBookmarkHandler={() => selectHandler(item.id)}
                     bgfillColor={"#DCB116"}
-                    iconFillColor={ "#000000"}
+                    iconFillColor={"#000000"}
                     imgUrl={`${baseUrl}${item.poster_path}`}
                   />
                 </div>
@@ -107,7 +110,6 @@ const HeroSection: React.FC = () => {
                   <div className="flex flex-row gap-x-2">
                     <StarIcon strokeWidth="2" className={"w-5 h-5"} />
                     <span className="mt-0.5">
-                      {" "}
                       {item.vote_average.toPrecision(2)}
                     </span>
                   </div>
@@ -165,5 +167,5 @@ const HeroSection: React.FC = () => {
       </div>
     </div>
   );
-}
-export default HeroSection
+};
+export default HeroSection;

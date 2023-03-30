@@ -16,7 +16,6 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(currentUser, "user");
     disptach(AuthActions.setIsSubmitted(true));
     if (currentUser === null) {
       signIn(userDetails).catch((err: any) => {

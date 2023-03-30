@@ -14,7 +14,6 @@ import {
 } from "../media/Icons";
 import { LogoImage } from "../media/Images";
 import {
-  getLatestMovies,
   getSearchMovie,
   getUpcomingMovies,
   getTrendingMedia,
@@ -33,9 +32,15 @@ const Header: React.FC = () => {
   const authContext = useContext(AuthContext);
   const { currentUser, signOut } = authContext;
 
+  if(currentUser && currentUser.displayName)
+  window.localStorage.setItem('currentUser', JSON.stringify(currentUser?.displayName))
+
   const searchedMovies = useSelector(
     (state: RootState) => state.header.searchedMovies
   );
+    const selectedList = JSON.parse(window.localStorage.getItem("selectedItems") || "null") || useSelector(
+      (state: RootState) => state.hero.selectedItems
+    );
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -68,6 +73,8 @@ const Header: React.FC = () => {
     return () =>
       document.removeEventListener("click", outSideClickHandler, true);
   }, [isDropdown]);
+  useEffect(() => {
+  }, [selectedList])
 
   return (
     <div className="bg-black-nav h-[56px] text-white w-full">
@@ -152,29 +159,54 @@ const Header: React.FC = () => {
 
         <button id="imdb-pro" className="hover:bg-black-nav-hover rounded-md">
           <div className="px-3 py-2">
-            <img src="./src/assets/svgs/imdb-pro.png" />
+            <img src="./src/assets/svgs/imdb-pro.png" alt="imdb-pro" />
           </div>
         </button>
         <div className="w-[1px] h-8 my-0 mx-2 border border-[#383838]"></div>
-        <button
-          id="watch-list"
-          className="flex px-4 py-1 rounded-md hover:bg-black-nav-hover"
-        >
-          <div>
-            <BookMarkPlusIcon />
-          </div>
-          WatchList
-        </button>
+        {!currentUser?.displayName?<Link to={"/signin"}>
+          <button
+            id="watch-list"
+            className="flex  gap-x-1 px-4 py-1 rounded-md hover:bg-black-nav-hover"
+          >
+            <div>
+              <BookMarkPlusIcon />
+            </div>
+            <span>WatchList</span>
+            {selectedList!.length > 0 && (
+              <span className="bg-yellow-default rounded-md px-2 text-black-default">
+                {selectedList?.length}
+              </span>
+            )}
+          </button>
+        </Link>:<Link to={"/list"}>
+          <button
+            id="watch-list"
+            className="flex  gap-x-1 px-4 py-1 rounded-md hover:bg-black-nav-hover"
+          >
+            <div>
+              <BookMarkPlusIcon />
+            </div>
+            <span>WatchList</span>
+            {selectedList!.length > 0 && (
+              <span className="bg-yellow-default rounded-md px-2 text-black-default">
+                {selectedList?.length}
+              </span>
+            )}
+          </button>
+        </Link>}
         {/* display profile when logged in */}
         <div className="flex flex-col relative">
           <div>
-            {currentUser?.displayName ? (
+            {localStorage.getItem("currentUser") ? (
               <button
                 className="rounded-md px-4 py-2 hover:bg-black-nav-hover"
                 id="sign-in"
-                onClick={() => dispatch(HeaderActions.setIsDropDown(!isDropdown))}
+                onClick={() =>
+                  dispatch(HeaderActions.setIsDropDown(!isDropdown))
+                }
               >
-                {currentUser?.displayName}
+                {JSON.parse(localStorage.getItem("currentUser") || "null") ||
+                  currentUser?.displayName}
               </button>
             ) : (
               <Link to={"/signinCover"}>
@@ -187,9 +219,9 @@ const Header: React.FC = () => {
               </Link>
             )}
           </div>
-          {isDropdown &&
+          {isDropdown && (
             <div className="mt-10 ml-[-75px] rounded-md absolute bg-black-default w-[136px]  flex flex-col hover:cursor-pointer">
-              <div className="w-full text-center text-[16px] py-4 tex-lg hover:bg-black-nav-hover font-bold border-b">
+              <div className="w-full text-center text-[16px] py-4 tex-lg hover:bg-black-nav-hover font-bold border-b flex">
                 WatchList
               </div>
               <div
@@ -199,7 +231,7 @@ const Header: React.FC = () => {
                 LogOut
               </div>
             </div>
-          }
+          )}
         </div>
 
         <button

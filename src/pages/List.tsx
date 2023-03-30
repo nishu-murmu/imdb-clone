@@ -17,17 +17,28 @@ import {
 } from "../utils/types";
 import { ListActions } from "../store/reducers/listSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { getPopularMovies } from "../utils/apiFunctions";
-import { Link } from "react-router-dom";
+import { getMovieDetails, getPopularMovies } from "../utils/apiFunctions";
+import { Link, useNavigate } from "react-router-dom";
+import { MovieCardAction } from "../store/reducers/movieCardSlice";
+import useSelectMedia  from "../utils/customHooks/useSelectMedia";
+import useOnClickPreview from "../utils/customHooks/useOnClickPreview";
+
 const List: React.FC = () => {
   const dispatch = useDispatch();
+  const { selectHandler } = useSelectMedia();
+  const {onClickPreviewHandler} = useOnClickPreview()
+
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const selectValue = useSelector(
     (state: RootState) => state.list?.selectValue
   );
+  const navigate = useNavigate();
   const popularMovies = useSelector(
     (state: RootState) => state.list?.popularMovies
   );
+  const selectedList =
+    JSON.parse(window.localStorage.getItem("selectedItems") || "null") ||
+    useSelector((state: RootState) => state.hero.selectedItems);
 
   const filterListHandler = (
     data: any,
@@ -75,7 +86,6 @@ const List: React.FC = () => {
     getPopularMovieList();
   }, []);
 
-  console.log(selectValue, 'value')
 
   return (
     <MainLayout>
@@ -151,11 +161,17 @@ const List: React.FC = () => {
                             ) + 1}
                             .
                           </span>
-                          <Link to={"/"}>
-                            <span className="text-blue-800 hover:underline">
-                              {item.original_title}
-                            </span>
-                          </Link>
+                          <span
+                            onClick={() =>
+                              onClickPreviewHandler({
+                                mediaType: "movie",
+                                cardId: item.id,
+                              })
+                            }
+                            className="text-blue-800 hover:underline hover:cursor-pointer"
+                          >
+                            {item.original_title}
+                          </span>
                           {selectValue === "popularity" ? (
                             <span>{`(${item.popularity})`}</span>
                           ) : (
@@ -176,12 +192,23 @@ const List: React.FC = () => {
                         </div>
                       </td>
                       <td>
-                        <div className="flex justify-center hover:cursor-pointer">
-                          <BookMarkCheckFillIcon
-                            fillColor="green"
-                            width="20"
-                            height="20"
-                          />
+                        <div
+                          className="flex justify-center hover:cursor-pointer"
+                          onClick={() => selectHandler(item.id)}
+                        >
+                          {selectedList?.includes(item.id) ? (
+                            <BookMarkCheckFillIcon
+                              fillColor="green"
+                              width="24"
+                              height="24"
+                            />
+                          ) : (
+                            <BookMarkPlusIcon
+                              fillColor="green"
+                              width="24"
+                              height="24"
+                            />
+                          )}
                         </div>
                       </td>
                     </tr>

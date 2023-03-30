@@ -63,6 +63,8 @@ const Carousal: React.FC = () => {
                   key={movie.id}
                   title={movie.original_name}
                   cardId={movie.id}
+                  bgfillColor={"#DCB116"}
+                  iconFillColor={"#000000"}
                   mediaType={"tv"}
                   isCarousal={true}
                   ratings={movie.vote_average}
@@ -76,6 +78,8 @@ const Carousal: React.FC = () => {
                   isCarousal={true}
                   cardId={movie.id}
                   mediaType={"tv"}
+                  bgfillColor={"#DCB116"}
+                  iconFillColor={"#000000"}
                   title={movie.original_name}
                   key={movie.id}
                   ratings={movie.vote_average}
@@ -105,6 +109,8 @@ const Carousal: React.FC = () => {
                 <MovieCard
                   key={movie.id}
                   cardId={movie.id}
+                  bgfillColor={"#DCB116"}
+                  iconFillColor={"#000000"}
                   mediaType={"movie"}
                   isCarousal={true}
                   title={movie.title}
@@ -118,6 +124,8 @@ const Carousal: React.FC = () => {
                 <MovieCard
                   key={movie.id}
                   title={movie.title}
+                  bgfillColor={"#DCB116"}
+                  iconFillColor={"#000000"}
                   mediaType={"movie"}
                   cardId={movie.id}
                   ratings={movie.vote_average}

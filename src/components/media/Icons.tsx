@@ -183,16 +183,16 @@ export const TiktokIcon = ({ width, height, className }: IconsProps) => {
   );
 };
 
-export const BookMarkPlusIcon = () => {
+export const BookMarkPlusIcon = ({fillColor, width, height}: IconsProps) => {
   return (
     <svg
-      width="24"
-      height="24"
+      width={width}
+      height={height}
       xmlns="http://www.w3.org/2000/svg"
       className="ipc-icon ipc-icon--watchlist ipc-btn__icon ipc-btn__icon--pre"
       id="iconContext-watchlist"
       viewBox="0 0 24 24"
-      fill="currentColor"
+      fill={fillColor}
       role="presentation"
     >
       <path
