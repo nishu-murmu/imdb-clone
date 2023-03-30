@@ -30,7 +30,6 @@ const Carousal: React.FC = () => {
     const getPopularMovieList = async () => {
       const result = await getPopularMovies();
       const moviesResult = await getPopularShows();
-      const movie = await getMovieDetails(804150);
       dispatch(ListActions.getPopularMovies(result));
       dispatch(ListActions.getPopularShows(moviesResult));
     };
@@ -64,6 +63,7 @@ const Carousal: React.FC = () => {
                   key={movie.id}
                   title={movie.original_name}
                   cardId={movie.id}
+                  mediaType={"tv"}
                   isCarousal={true}
                   ratings={movie.vote_average}
                   imgUrl={`${baseUrl}${movie.poster_path}`}
@@ -75,6 +75,7 @@ const Carousal: React.FC = () => {
                 <MovieCard
                   isCarousal={true}
                   cardId={movie.id}
+                  mediaType={"tv"}
                   title={movie.original_name}
                   key={movie.id}
                   ratings={movie.vote_average}
@@ -104,6 +105,7 @@ const Carousal: React.FC = () => {
                 <MovieCard
                   key={movie.id}
                   cardId={movie.id}
+                  mediaType={"movie"}
                   isCarousal={true}
                   title={movie.title}
                   ratings={movie.vote_average}
@@ -116,6 +118,7 @@ const Carousal: React.FC = () => {
                 <MovieCard
                   key={movie.id}
                   title={movie.title}
+                  mediaType={"movie"}
                   cardId={movie.id}
                   ratings={movie.vote_average}
                   isCarousal={true}

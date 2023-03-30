@@ -29,6 +29,8 @@ export const getTrendingMedia = (): Promise<[]> | [] => {
   return fetchApi(url)
 }
 
-export const getMovieDetails = (id: number): Promise<{}> | {} => {
-  return fetchApi(`https://api.themoviedb.org/3/movie/${id}?api_key=8ef0179a2b8e5afe1139a3e76972056b&language=en-US`)
-}
+export const getMovieDetails = (mediaType: string, id: number): Promise<{}> | {} => {
+  return fetchApi(
+    `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=8ef0179a2b8e5afe1139a3e76972056b&language=en-US`
+  );
+};
