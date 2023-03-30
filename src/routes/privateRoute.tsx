@@ -5,7 +5,7 @@ import { LayoutProps } from "../utils/types";
 
 const Protected = ({ children }: { children: JSX.Element }) => {
   const { currentUser } = useContext(AuthContext);
-  if (!currentUser) return <Navigate to="/signin" replace />;
+  if (!currentUser && !localStorage.getItem('currentUser')) return <Navigate to="/signin" replace />;
   return children;
 };
 export default Protected;

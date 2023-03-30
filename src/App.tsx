@@ -6,8 +6,13 @@ import Preview from "./pages/Preview"
 import List from "./pages/List"
 import SignInCover from "./pages/SignInCover"
 import Protected from "./routes/privateRoute"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "./utils/types"
 
 function App() {
+
+  const dispatch = useDispatch()
+  const mediaId = useSelector((state: RootState) => state.movieCard.mediaId)
 
   return (
     <section className=" w-full h-full font-roboto">
@@ -15,7 +20,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/preview" element={<Preview />} />
+        <Route path={`/preview/${mediaId}`} element={<Preview />} />
         <Route
           path="/list"
           element={
