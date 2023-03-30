@@ -12,6 +12,8 @@ export interface fetchedDataProps {
   title: string
   vote_average?: number
   vote_count?: number
+  original_name?: string
+  name?: string
 }
 
 export interface fetchedArrayProps {
@@ -19,6 +21,7 @@ export interface fetchedArrayProps {
   upcomingMovies?: fetchedDataProps[]
   popularMovies?: fetchedDataProps[]
   trendingMedia?: fetchedDataProps[]
+  popularShows?: fetchedDataProps[]
 }
 
 export interface HeaderSliceProps extends fetchedArrayProps {

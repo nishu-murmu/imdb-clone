@@ -17,8 +17,10 @@ export const getUpcomingMovies = (): Promise<[]> | [] => {
 https://api.themoviedb.org/3/movie/upcoming?api_key=8ef0179a2b8e5afe1139a3e76972056b&language=en-US&page=1`)
 }
 
-export const getLatestMovies = (): Promise<[]> | [] => {
-  return fetchApi("")
+export const getPopularShows = (): Promise<[]> | [] => {
+  return fetchApi(
+    "https://api.themoviedb.org/3/tv/popular?api_key=8ef0179a2b8e5afe1139a3e76972056b&language=en-US&page=1"
+  );
 }
 
 export const getTrendingMedia = (): Promise<[]> | [] => {
