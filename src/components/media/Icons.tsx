@@ -236,15 +236,15 @@ export const SearchIcon = () => {
   );
 };
 
-export const TelevisionIcon = () => {
+export const TelevisionIcon = ({className, fillColor}: IconsProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
+      fill="#1e1e1f"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-6 h-6"
+      stroke={fillColor}
+      className={className}
     >
       <path
         strokeLinecap="round"
@@ -255,15 +255,15 @@ export const TelevisionIcon = () => {
   );
 };
 
-export const FilmIcon = () => {
+export const FilmIcon = ({fillColor, className}: IconsProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
+      fill="yellow"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-6 h-6"
+      stroke={fillColor}
+      className={className}
     >
       <path
         strokeLinecap="round"
@@ -418,13 +418,13 @@ export const ArrowUpFillIcon = () => {
   );
 };
 
-export const CollectionPlayIcon = () => {
+export const CollectionPlayIcon = ({width,height,fillColor}: IconsProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      fill="currentColor"
+      width={width}
+      height={height}
+      fill={fillColor}
       className="bi bi-collection-play-fill"
       viewBox="0 0 16 16"
     >
@@ -433,7 +433,7 @@ export const CollectionPlayIcon = () => {
   );
 };
 
-export const CrossIcon = (height: string, width: string, className: string) => {
+export const CrossIcon = ({height, width, className}: IconsProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

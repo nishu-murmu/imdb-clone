@@ -9,8 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   ArrowDownFillIcon,
   BookMarkPlusIcon,
+  CollectionPlayIcon,
+  CrossIcon,
+  FilmIcon,
   HamBurgerIcon,
   SearchIcon,
+  TelevisionIcon,
 } from "../media/Icons";
 import { LogoImage } from "../media/Images";
 import { getSearchMovie } from "../../utils/apiFunctions";
@@ -29,16 +33,20 @@ const Header: React.FC = () => {
   const authContext = useContext(AuthContext);
   const { currentUser, signOut } = authContext;
 
-  if(currentUser && currentUser.displayName)
-  window.localStorage.setItem('currentUser', JSON.stringify(currentUser?.displayName))
+  if (currentUser && currentUser.displayName)
+    window.localStorage.setItem(
+      "currentUser",
+      JSON.stringify(currentUser?.displayName)
+    );
 
   const searchedMovies = useSelector(
     (state: RootState) => state.header.searchedMovies
   );
-    const selectedList = JSON.parse(window.localStorage.getItem("selectedItems") || "null") || useSelector(
-      (state: RootState) => state.hero.selectedItems
-    );
+  const selectedList =
+    JSON.parse(window.localStorage.getItem("selectedItems") || "null") ||
+    useSelector((state: RootState) => state.hero.selectedItems);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null)
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -60,6 +68,12 @@ const Header: React.FC = () => {
     dispatch(HeaderActions.setIsDropDown(false));
   };
 
+  const toggleMenuHandler = (isMenu: boolean) => {
+    // menuRef.current?.classList.add('')
+    console.log(isMenu, 'menu')
+    dispatch(HeaderActions.setIsMenu(isMenu));
+  }
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target?.value;
     !inputValue && dispatch(HeaderActions.setIsDropDown(false));
@@ -74,13 +88,113 @@ const Header: React.FC = () => {
 
   return (
     <div className="bg-black-nav h-[56px] text-white w-full">
+      {/* overlay start */}
+      {isMenu && (
+        <div
+          ref={menuRef}
+          className="transition duration-500 ease-in-out h-screen overflow-hidden z-10 block absolute p-28 w-full bg-black-overlay"
+        >
+          <div className="container mx-auto flex flex-col gap-x-6 justify-around">
+            <div id="overlay-heading" className="flex justify-between">
+              <div className="hover:cursor-pointer">
+                <LogoImage height="56px" width="98px" />
+              </div>
+              <div
+                className="h-14 w-14 bg-yellow-default relative rounded-full hover:cursor-pointer"
+                onClick={() => toggleMenuHandler(false)}
+              >
+                <CrossIcon
+                  height="30px"
+                  width="30px"
+                  className="absolute left-[13px] top-[13px]"
+                />
+              </div>
+            </div>
+            <div
+              id="overlay-content"
+              className="flex justify-between gap-x-4 px-10 my-10"
+            >
+              <div>
+                <div className="font-extrabold flex flex-col ">
+                  <div className="flex gap-x-2">
+                    <FilmIcon fillColor="yellow" className="h-10 w-10" />
+                    <div className="text-2xl">Movies</div>
+                  </div>
+                  <div className="mt-4 pl-12">
+                    <ul className="leading-9">
+                      <Link to={"/list"} onClick={() => dispatch(HeaderActions.setIsMenu(false))}>
+                        <li className="hover:cursor-pointer hover:underline">
+                          Popular Movies
+                        </li>
+                      </Link>
+                      <li className="hover:cursor-pointer hover:underline">
+                        Top Rated Movies
+                      </li>
+                      <li className="hover:cursor-pointer hover:underline">
+                        Upcoming Movies
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className=" font-extrabold flex flex-col">
+                  <div className="flex gap-x-2">
+                    <CollectionPlayIcon
+                      height="35"
+                      width="35"
+                      fillColor="yellow"
+                    />
+                    <div className="text-2xl">TV Shows</div>
+                  </div>
+                  <div className="mt-4 pl-12">
+                    <ul className="leading-9">
+                      <li className="hover:cursor-pointer hover:underline">
+                        Top 250 TV Shows
+                      </li>
+                      <li className="hover:cursor-pointer hover:underline">
+                        Most Popular TV Shows
+                      </li>
+                      <li className="hover:cursor-pointer hover:underline">
+                        TV Shows by Genres
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="font-extrabold flex flex-col">
+                  <div className="flex gap-x-2">
+                    <TelevisionIcon fillColor="yellow" className="h-10 w-10" />
+                    <div className="text-2xl">Watch</div>
+                  </div>
+                  <div className="mt-4 pl-12">
+                    <ul className="leading-9">
+                      <li className="hover:cursor-pointer hover:underline">
+                        IMDb Originals
+                      </li>
+                      <li className="hover:cursor-pointer hover:underline">
+                        IMDb Picks
+                      </li>
+                      <li className="hover:cursor-pointer hover:underline">
+                        IMDb Podcasts
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* overlay end */}
       <div className="pt-2 container h-12 flex text-white items-center gap-2 text-sm  font-bold mx-auto">
         <Link to={"/"}>
           <LogoImage width={"64"} height={"32"} />
         </Link>
 
         <button
-          onClick={() => dispatch(HeaderActions.setIsMenu(true))}
+          onClick={() => toggleMenuHandler(true)}
           className="flex gap-x-0.5 hover:bg-black-nav-hover rounded-md px-4 py-2"
         >
           <div>
@@ -88,6 +202,7 @@ const Header: React.FC = () => {
           </div>
           <p className="mt-0.5">Menu</p>
         </button>
+
         <div className=" block relative">
           <button
             id="search-bar"
