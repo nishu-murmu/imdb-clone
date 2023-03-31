@@ -23,10 +23,11 @@ const WatchList = () => {
 
   useEffect(() => {
     const getWatchListArray = () => {
+      console.log(selectedItems, "items hai");
+      
       selectedItems.forEach(async (item: number) => {
         let value = await getMovieDetails("movie", item);
         dispatch(ListActions.getWatchlistMovies(value));
-        console.log(value, "number");
       });
     };
     getWatchListArray();
@@ -37,19 +38,13 @@ const WatchList = () => {
       index === arr.findIndex((t: any) => t.id === item.id)
   );
 
-  console.log(movieDetailsArray, "arr");
-  console.log(
-    JSON.parse(window.localStorage.getItem("selectedItems") || JSON.parse("")),
-    "local"
-  );
-  console.log(selectedItems, "value selected");
   return (
     <MainLayout>
       <div className="w-full  bg-gradient-to-b from-light-100 to-light-50">
         <div className="grid grid-cols-6 h-auto container mx-auto  bg-light-200 w-[1008px]">
           <div
             id="top-chart"
-            className="col-span-4 px-6 py-4 border-r-2 border-gray-500"
+            className={`col-span-4 px-6 py-4 border-r-2 border-gray-500 ${movieDetailsArray.length > 0 ?"h-screen": "h-auto"}`}
           >
             <div className="flex justify-between">
               <div>

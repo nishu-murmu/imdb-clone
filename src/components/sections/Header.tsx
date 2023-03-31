@@ -70,7 +70,6 @@ const Header: React.FC = () => {
 
   const toggleMenuHandler = (isMenu: boolean) => {
     // menuRef.current?.classList.add('')
-    console.log(isMenu, 'menu')
     dispatch(HeaderActions.setIsMenu(isMenu));
   }
 
@@ -92,7 +91,7 @@ const Header: React.FC = () => {
       {isMenu && (
         <div
           ref={menuRef}
-          className="transition duration-500 ease-in-out h-screen overflow-hidden z-10 block absolute p-28 w-full bg-black-overlay"
+          className="transition duration-500 ease-in-out h-screen overflow-hidden z-10 block absolute p-28 w-full  bg-black-overlay"
         >
           <div className="container mx-auto flex flex-col gap-x-6 justify-around">
             <div id="overlay-heading" className="flex justify-between">
@@ -287,7 +286,7 @@ const Header: React.FC = () => {
               className="flex  gap-x-1 px-4 py-1 rounded-md hover:bg-black-nav-hover"
             >
               <div>
-                <BookMarkPlusIcon />
+                <BookMarkPlusIcon height="20px" width="20px" fillColor="white" />
               </div>
               <span>WatchList</span>
               {selectedList!.length > 0 && (

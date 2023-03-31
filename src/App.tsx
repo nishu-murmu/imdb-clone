@@ -21,15 +21,15 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path={`/preview/${mediaId}`} element={<Preview />} />
+        <Route path="/list" element={<List />} />
         <Route
-          path="/list"
+          path="/watchlist"
           element={
             <Protected>
-              <List />
+              <WatchList />
             </Protected>
           }
         />
-        <Route path="/watchlist" element={<WatchList />} />
         <Route path="/signinCover" element={<SignInCover />} />
       </Routes>
     </section>

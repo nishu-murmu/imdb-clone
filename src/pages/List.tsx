@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import moment from "moment";
 import {
   BookMarkCheckFillIcon,
@@ -22,11 +22,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { MovieCardAction } from "../store/reducers/movieCardSlice";
 import useSelectMedia from "../utils/customHooks/useSelectMedia";
 import useOnClickPreview from "../utils/customHooks/useOnClickPreview";
+import { AuthContext } from "../contexts/authContext";
 
 const List: React.FC = () => {
   const dispatch = useDispatch();
   const { selectHandler } = useSelectMedia();
   const { onClickPreviewHandler } = useOnClickPreview();
+  const authContext = useContext(AuthContext);
+
+  const { currentUser } = authContext;
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const selectValue = useSelector(
@@ -192,24 +196,36 @@ const List: React.FC = () => {
                         </div>
                       </td>
                       <td>
-                        <div
-                          className="flex justify-center hover:cursor-pointer"
-                          onClick={() => selectHandler(item.id)}
-                        >
-                          {selectedList?.includes(item.id) ? (
-                            <BookMarkCheckFillIcon
-                              fillColor="green"
-                              width="24"
-                              height="24"
-                            />
-                          ) : (
-                            <BookMarkPlusIcon
-                              fillColor="black"
-                              width="24"
-                              height="24"
-                            />
-                          )}
-                        </div>
+                        {!currentUser?.displayName ? (
+                          <Link to={'/signin'}>
+                            <div className="flex justify-center hover:cursor-pointer">
+                              <BookMarkPlusIcon
+                                fillColor="black"
+                                width="24"
+                                height="24"
+                              />
+                            </div>
+                          </Link>
+                        ) : (
+                          <div
+                            className="flex justify-center hover:cursor-pointer"
+                            onClick={() => selectHandler(item.id)}
+                          >
+                            {selectedList?.includes(item.id) ? (
+                              <BookMarkCheckFillIcon
+                                fillColor="green"
+                                width="24"
+                                height="24"
+                              />
+                            ) : (
+                              <BookMarkPlusIcon
+                                fillColor="black"
+                                width="24"
+                                height="24"
+                              />
+                            )}
+                          </div>
+                        )}
                       </td>
                     </tr>
                   ))}
