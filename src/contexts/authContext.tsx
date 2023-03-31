@@ -33,6 +33,9 @@ export const AuthProvider = ({ children }: LayoutProps) => {
   const signOut = () => {
     SignOutUser();
     setCurrentUser(null);
+    window.localStorage.setItem("currentUser", "null")
+    console.log('check empty')
+    window.localStorage.setItem("selectedItems", JSON.stringify([])) 
     navigate("/");
   };
 

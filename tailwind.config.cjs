@@ -9,6 +9,9 @@ module.exports = {
       },
     },
     extend: {
+      height: {
+        list: "calc(100vh - 148px)"
+      },
       borderWidth: {
         1: "1px",
       },
@@ -19,6 +22,7 @@ module.exports = {
         title: ["20px"],
         search: ["16px"],
         sm: ["12px"],
+        md: ['14px']
       },
       borderRadius: {
         sm: ".225rem",

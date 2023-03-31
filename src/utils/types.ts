@@ -37,6 +37,7 @@ export interface HeroSliceProps extends fetchedArrayProps {
 }
 
 export interface ListSliceProps extends fetchedArrayProps {
+  watchlistMovies: {}[] 
   selectValue: filterOption | null
 
 }

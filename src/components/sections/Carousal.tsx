@@ -73,7 +73,7 @@ const Carousal: React.FC = () => {
               ))}
             </SwiperSlide>
             <SwiperSlide className="flex gap-x-4">
-              {popularShows?.slice(13, 20).map((movie) => (
+              {popularShows?.slice(12, 19).map((movie) => (
                 <MovieCard
                   isCarousal={true}
                   cardId={movie.id}

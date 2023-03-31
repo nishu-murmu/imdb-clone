@@ -20,13 +20,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { getMovieDetails, getPopularMovies } from "../utils/apiFunctions";
 import { Link, useNavigate } from "react-router-dom";
 import { MovieCardAction } from "../store/reducers/movieCardSlice";
-import useSelectMedia  from "../utils/customHooks/useSelectMedia";
+import useSelectMedia from "../utils/customHooks/useSelectMedia";
 import useOnClickPreview from "../utils/customHooks/useOnClickPreview";
 
 const List: React.FC = () => {
   const dispatch = useDispatch();
   const { selectHandler } = useSelectMedia();
-  const {onClickPreviewHandler} = useOnClickPreview()
+  const { onClickPreviewHandler } = useOnClickPreview();
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const selectValue = useSelector(
@@ -37,7 +37,8 @@ const List: React.FC = () => {
     (state: RootState) => state.list?.popularMovies
   );
   const selectedList =
-    JSON.parse(window.localStorage.getItem("selectedItems") || "null") ||
+    (!window.localStorage.getItem("selectedItems") &&
+      JSON.parse(window.localStorage.getItem("selectedItems") || "null")) ||
     useSelector((state: RootState) => state.hero.selectedItems);
 
   const filterListHandler = (
@@ -85,7 +86,6 @@ const List: React.FC = () => {
     };
     getPopularMovieList();
   }, []);
-
 
   return (
     <MainLayout>
@@ -204,7 +204,7 @@ const List: React.FC = () => {
                             />
                           ) : (
                             <BookMarkPlusIcon
-                              fillColor="green"
+                              fillColor="black"
                               width="24"
                               height="24"
                             />

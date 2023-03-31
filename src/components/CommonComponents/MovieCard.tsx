@@ -19,18 +19,31 @@ const MovieCard = (props: any) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { onClickPreviewHandler } = useOnClickPreview();
-  const {selectHandler} = useSelectMedia()
-
+  const { selectHandler } = useSelectMedia();
 
   return (
     <div
       className={` mb-1 group relative w-[165px] ${
         props.isCarousal ? "h-[470px]" : "h-[244px]"
       } `}
-      onClick={() => selectHandler(props.cardId)}
     >
-      <Link to={"/signin"}>
-        <div>
+      {!currentUser && !window.localStorage.getItem("currentUser") ? (
+        <Link to={"/signin"}>
+          <div>
+            <div className="absolute top-0 left-0 group-hover:cursor-pointer">
+              <BookMarkImage
+                fillColor={props.bgfillColor}
+                width={props.width}
+                height={props.height}
+              />
+            </div>
+            <div className="absolute top-1 left-[8px] mt-2 ml-.5 group-hover:cursor-pointer">
+              <PlusIcon fillColor={props.iconFillColor} />
+            </div>
+          </div>
+        </Link>
+      ) : (
+        <div onClick={() => selectHandler(props.cardId)} className="w-auto">
           <div className="absolute top-0 left-0 group-hover:cursor-pointer">
             {currentUser && selectedList?.includes(props.cardId) ? (
               <BookMarkImage
@@ -58,7 +71,7 @@ const MovieCard = (props: any) => {
             )}
           </div>
         </div>
-      </Link>
+      )}
 
       <img
         src={props.imgUrl}

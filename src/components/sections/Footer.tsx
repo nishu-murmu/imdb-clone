@@ -17,7 +17,7 @@ const Footer: React.FC<LayoutProps> = (props) => {
         className={`mt-4 w-full ${props.isSignInCover && "py-8"}`}
       >
         <div className='container mx-auto'>
-          {!props.isSignInCover && (
+          {!props.isSignInCover || JSON.parse(window.localStorage.getItem("currentUser") || "null") && (
             <div className='justify-center flex'>
               <Link to='/signinCover'>
                 <button className='bg-yellow-default text-black-default rounded-sm py-2 text-sm px-8 hover:bg-yellow-hover'>

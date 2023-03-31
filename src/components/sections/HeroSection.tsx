@@ -87,6 +87,7 @@ const HeroSection: React.FC = () => {
                   <MovieCard
                     height="53px"
                     width="39px"
+                    mediaType={item.media_type}
                     cardId={item.id}
                     onBookmarkHandler={() => selectHandler(item.id)}
                     bgfillColor={"#DCB116"}

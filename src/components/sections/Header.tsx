@@ -13,19 +13,16 @@ import {
   SearchIcon,
 } from "../media/Icons";
 import { LogoImage } from "../media/Images";
-import {
-  getSearchMovie,
-  getUpcomingMovies,
-  getTrendingMedia,
-  getPopularMovies,
-} from "../../utils/apiFunctions";
+import { getSearchMovie } from "../../utils/apiFunctions";
 import { HeaderActions } from "../../store/reducers/headerSlice";
 import { RootState } from "../../utils/types";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/authContext";
+import useOnClickPreview from "../../utils/customHooks/useOnClickPreview";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
+  const { onClickPreviewHandler } = useOnClickPreview();
   const searchText = useSelector((state: RootState) => state.header.searchText);
   const isMenu = useSelector((state: RootState) => state.header.isMenu);
   let isDropdown = useSelector((state: RootState) => state.header.isDropDown);
@@ -73,8 +70,7 @@ const Header: React.FC = () => {
     return () =>
       document.removeEventListener("click", outSideClickHandler, true);
   }, [isDropdown]);
-  useEffect(() => {
-  }, [selectedList])
+  useEffect(() => {}, [selectedList]);
 
   return (
     <div className="bg-black-nav h-[56px] text-white w-full">
@@ -132,6 +128,12 @@ const Header: React.FC = () => {
               searchedMovies.slice(0, 7).map((item: any) => (
                 <div
                   key={item.id}
+                  onClick={() =>
+                    onClickPreviewHandler({
+                      mediaType: "movie",
+                      cardId: item.id,
+                    })
+                  }
                   className="p-2 h-24 flex group bg-black-nav w-full gap-2 hover:bg-black-nav-hover hover:cursor-pointer"
                 >
                   <div className="h-16 w-14 group-hover:bg-black-nav-hover group-hover:cursor-pointer">
@@ -163,41 +165,43 @@ const Header: React.FC = () => {
           </div>
         </button>
         <div className="w-[1px] h-8 my-0 mx-2 border border-[#383838]"></div>
-        {!currentUser?.displayName?<Link to={"/signin"}>
-          <button
-            id="watch-list"
-            className="flex  gap-x-1 px-4 py-1 rounded-md hover:bg-black-nav-hover"
-          >
-            <div>
-              <BookMarkPlusIcon />
-            </div>
-            <span>WatchList</span>
-            {selectedList!.length > 0 && (
-              <span className="bg-yellow-default rounded-md px-2 text-black-default">
-                {selectedList?.length}
-              </span>
-            )}
-          </button>
-        </Link>:<Link to={"/list"}>
-          <button
-            id="watch-list"
-            className="flex  gap-x-1 px-4 py-1 rounded-md hover:bg-black-nav-hover"
-          >
-            <div>
-              <BookMarkPlusIcon />
-            </div>
-            <span>WatchList</span>
-            {selectedList!.length > 0 && (
-              <span className="bg-yellow-default rounded-md px-2 text-black-default">
-                {selectedList?.length}
-              </span>
-            )}
-          </button>
-        </Link>}
+        {!currentUser?.displayName ? (
+          <Link to={"/signin"}>
+            <button
+              id="watch-list"
+              className="flex  gap-x-1 px-4 py-1 rounded-md hover:bg-black-nav-hover"
+            >
+              <div>
+                <BookMarkPlusIcon />
+              </div>
+              <span>WatchList</span>
+              {selectedList!.length > 0 && (
+                <span className="bg-yellow-default rounded-md px-2 text-black-default">
+                  {selectedList?.length}
+                </span>
+              )}
+            </button>
+          </Link>
+        ) : (
+          <Link to={"/watchlist"}>
+            <button
+              id="watch-list"
+              className="flex  gap-x-1 px-4 py-1 rounded-md hover:bg-black-nav-hover"
+            >
+              <span>WatchList</span>
+              {selectedList!.length > 0 && (
+                <span className="bg-yellow-default rounded-md px-2 text-black-default">
+                  {JSON.parse(localStorage.getItem("selectItems"))?.length ||
+                    selectedList?.length}
+                </span>
+              )}
+            </button>
+          </Link>
+        )}
         {/* display profile when logged in */}
         <div className="flex flex-col relative">
           <div>
-            {localStorage.getItem("currentUser") ? (
+            {localStorage.getItem("currentUser") && currentUser?.displayName ? (
               <button
                 className="rounded-md px-4 py-2 hover:bg-black-nav-hover"
                 id="sign-in"
@@ -206,7 +210,8 @@ const Header: React.FC = () => {
                 }
               >
                 {JSON.parse(localStorage.getItem("currentUser") || "null") ||
-                  currentUser?.displayName}
+                  currentUser?.displayName ||
+                  "test"}
               </button>
             ) : (
               <Link to={"/signinCover"}>
@@ -219,30 +224,27 @@ const Header: React.FC = () => {
               </Link>
             )}
           </div>
-          {isDropdown && (
-            <div className="mt-10 ml-[-75px] rounded-md absolute bg-black-default w-[136px]  flex flex-col hover:cursor-pointer">
-              <div className="w-full text-center text-[16px] py-4 tex-lg hover:bg-black-nav-hover font-bold border-b flex">
-                WatchList
-              </div>
-              <div
-                className="w-full hover:bg-black-nav-hover text-center text-[16px] py-4 tex-lg font-bold"
-                onClick={signOut}
-              >
-                LogOut
-              </div>
-            </div>
-          )}
         </div>
 
-        <button
-          id="en"
-          className="flex rounded-md px-4 py-2 hover:bg-black-nav-hover"
-        >
-          EN
-          <div className="mt-0.5 pl-1">
-            <ArrowDownFillIcon />
-          </div>
-        </button>
+        {currentUser?.displayName ? (
+          <button
+            id="en"
+            onClick={signOut}
+            className="flex rounded-md px-4 py-2 hover:bg-black-nav-hover"
+          >
+            Sign Out
+          </button>
+        ) : (
+          <button
+            id="en"
+            className="flex rounded-md px-4 py-2 hover:bg-black-nav-hover"
+          >
+            EN
+            <div className="mt-0.5 pl-1">
+              <ArrowDownFillIcon />
+            </div>
+          </button>
+        )}
       </div>
     </div>
   );

@@ -1,11 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { ListSliceProps } from "../../utils/types"
+import { createSlice } from "@reduxjs/toolkit";
+import { ListSliceProps } from "../../utils/types";
 
 const initialState: ListSliceProps = {
   popularMovies: [],
   popularShows: [],
+  watchlistMovies: [],
   selectValue: null,
-}
+};
 
 export const ListSlice = createSlice({
   name: "listSlice",
@@ -20,7 +21,11 @@ export const ListSlice = createSlice({
     setSelectValue: (state, action) => {
       state.selectValue = action.payload;
     },
+    getWatchlistMovies: (state, action) => {
+      // if(state.watchlistMovies.includes(action.payload.id))
+      state.watchlistMovies.push(action.payload);
+    },
   },
 });
 
-export const ListActions = ListSlice.actions
+export const ListActions = ListSlice.actions;
