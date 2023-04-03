@@ -22,7 +22,6 @@ export const ListSlice = createSlice({
       state.selectValue = action.payload;
     },
     getWatchlistMovies: (state, action) => {
-      // if(state.watchlistMovies.includes(action.payload.id))
       state.watchlistMovies.push(action.payload);
     },
   },

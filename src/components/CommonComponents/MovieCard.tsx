@@ -13,9 +13,9 @@ import useSelectMedia from "../../utils/customHooks/useSelectMedia";
 const MovieCard = (props: any) => {
   const authContext = useContext(AuthContext);
   const { currentUser } = authContext;
-  const selectedList = useSelector(
-    (state: RootState) => state.hero.selectedItems
-  );
+  const selectedList = JSON.parse(
+    window.localStorage.getItem("selectedItems") || JSON.parse("")
+  )|| useSelector((state: RootState) => state.hero.selectedItems);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { onClickPreviewHandler } = useOnClickPreview();
