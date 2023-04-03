@@ -12,7 +12,7 @@ const WatchList = () => {
   const dispatch = useDispatch();
   const { onClickPreviewHandler } = useOnClickPreview();
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const movieDetailsArray = useSelector(
+  let movieDetailsArray = useSelector(
     (state: RootState) => state.list.watchlistMovies
   );
 
@@ -23,20 +23,22 @@ const WatchList = () => {
 
   useEffect(() => {
     const getWatchListArray = () => {
-      console.log(selectedItems, "items hai");
-      
       selectedItems.forEach(async (item: number) => {
         let value = await getMovieDetails("movie", item);
         dispatch(ListActions.getWatchlistMovies(value));
       });
     };
     getWatchListArray();
+   
   }, []);
-
-  movieDetailsArray.filter(
-    (item: any, index: number, arr: any) =>
-      index === arr.findIndex((t: any) => t.id === item.id)
-  );
+   movieDetailsArray = Object.values(movieDetailsArray).filter(
+     (value, index, self) => {
+       return (
+         index ===
+         self.findIndex((obj) => JSON.stringify(obj) === JSON.stringify(value))
+       );
+     }
+   );
 
   return (
     <MainLayout>
@@ -44,7 +46,7 @@ const WatchList = () => {
         <div className="grid grid-cols-6 h-auto container mx-auto  bg-light-200 w-[1008px]">
           <div
             id="top-chart"
-            className={`col-span-4 px-6 py-4 border-r-2 border-gray-500 ${movieDetailsArray.length > 0 ?"h-screen": "h-auto"}`}
+            className={`col-span-4 px-6 py-4 border-r-2 border-gray-500 h-auto`}
           >
             <div className="flex justify-between">
               <div>
