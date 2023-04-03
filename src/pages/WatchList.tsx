@@ -2,7 +2,12 @@ import Select from "react-select";
 import MainLayout from "../components/layouts/MainLayout";
 import { BookMarkPlusIcon, ShareIcon } from "../components/media/Icons";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, fetchedDataProps, filterOption, listfilterOptions } from "../utils/types";
+import {
+  RootState,
+  fetchedDataProps,
+  filterOption,
+  listfilterOptions,
+} from "../utils/types";
 import useOnClickPreview from "../utils/customHooks/useOnClickPreview";
 import { useEffect } from "react";
 import { getMovieDetails } from "../utils/apiFunctions";
@@ -42,7 +47,10 @@ const WatchList = () => {
       );
     }
   );
-  const filteredMovieDetails = (data, filterParam: string | undefined) => {
+  const filteredMovieDetails = (
+    data: any[],
+    filterParam: string | undefined
+  ) => {
     data = data.map((item: fetchedDataProps) => {
       return {
         ...item,
@@ -56,18 +64,15 @@ const WatchList = () => {
       if (filterParam == "vote_average")
         return b?.vote_average - a?.vote_average;
 
-      if (filterParam == "alphabetical") {
-        return Object.fromEntries(
-          Object.entries(data).sort((a, b) => a[0].localeCompare(b[0]))
-        );
-      }
-
       if (filterParam == "popularity") return b?.popularity - a?.popularity;
 
       if (filterParam == "vote_count") return b?.vote_count - a?.vote_count;
       if (filterParam == "release_date")
         return b?.release_date - a?.release_date;
     });
+    if(filterParam === "alphabetical") {
+      return [...data].sort((a, b) => a.title.localeCompare(b.title));
+    }
     result = result.map((item: fetchedDataProps) => {
       return {
         ...item,
@@ -163,7 +168,7 @@ const WatchList = () => {
                       onClick={() =>
                         onClickPreviewHandler({
                           mediaType: "movie",
-                          cardId: 80093,
+                          cardId: item.id,
                         })
                       }
                       className="text-2xl hover:underline text-blue-800 font-semibold hover:cursor-pointer"
