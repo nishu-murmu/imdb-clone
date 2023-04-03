@@ -1,11 +1,11 @@
 
 
 export const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_PROJECT_ID,
-  projectId: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
+    apiKey: "AIzaSyDa461OEOc9hr1JIEY3TSUTaGXm7u52lMg",
+    authDomain: "imdb-auth-dev.firebaseapp.com",
+    projectId: "imdb-auth-dev",
+    storageBucket: "imdb-auth-dev.appspot.com",
+    messagingSenderId: "667126090187",
+    appId: "1:667126090187:web:176b8778faaa779b328e4e"
 };
 

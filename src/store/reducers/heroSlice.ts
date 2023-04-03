@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import useLocaleStorage from "../../utils/customHooks/useLocaleStorage";
 import { HeroSliceProps } from "../../utils/types";
 
 const initialState: HeroSliceProps = {
@@ -8,6 +9,7 @@ const initialState: HeroSliceProps = {
   cardId: 0,
 };
 
+const {getLocaleStorage, setLocaleStorage} = useLocaleStorage()
 export const HeroSlice = createSlice({
   name: "heroSlice",
   initialState,
@@ -20,8 +22,8 @@ export const HeroSlice = createSlice({
     },
     setSelectedItems: (state, action) => {
       let value;
-      let arr = JSON.parse(window.localStorage.getItem("selectedItems") || "null");
-      if (window.localStorage.getItem("selectedItems") !== null) {
+      let arr = getLocaleStorage('selectedItems') 
+      if (getLocaleStorage("selectedItems") !== null) {
         if (
           arr.includes(
             action.payload
@@ -38,10 +40,10 @@ export const HeroSlice = createSlice({
             action.payload,
           ];
         }
-        window.localStorage.setItem("selectedItems", JSON.stringify(value));
+                setLocaleStorage("selectedItems", JSON.stringify((value)))
       } else {
         value = action.payload;
-        window.localStorage.setItem("selectedItems", JSON.stringify(Array.from(value)));
+                setLocaleStorage("selectedItems", JSON.stringify(Array.from(value)))
         state.selectedItems = action.payload;
       }
     },
