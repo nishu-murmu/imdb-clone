@@ -39,7 +39,6 @@ export interface HeroSliceProps extends fetchedArrayProps {
 export interface ListSliceProps extends fetchedArrayProps {
   watchlistMovies: {}[] 
   selectValue: filterOption | null
-
 }
 
 export interface AuthSliceProps extends UserProps{
@@ -94,6 +93,15 @@ export const filterOptions: readonly filterOption[] = [
   { value: "release_date", label: "Release Date" },
   { value: "vote_count", label: "No Of Ratings" },
 ]
+
+export const listfilterOptions: readonly filterOption[] = [
+  { value: "vote_average", label: "IMDb Rating" },
+  { value: "popularity", label: "Popularity" },
+  { value: "vote_count", label: "No Of Ratings" },
+  { value: "release_date", label: "Release Date" },
+  { value: "alphabetical", label: "Alphabetical" },
+  { value: "runtime", label: "Run Time" },
+];
 
 export type UserProps = {
   name: string

@@ -69,7 +69,6 @@ const Header: React.FC = () => {
   };
 
   const toggleMenuHandler = (isMenu: boolean) => {
-    // menuRef.current?.classList.add('')
     dispatch(HeaderActions.setIsMenu(isMenu));
   }
 
@@ -83,7 +82,6 @@ const Header: React.FC = () => {
     return () =>
       document.removeEventListener("click", outSideClickHandler, true);
   }, [isDropdown]);
-  useEffect(() => {}, [selectedList]);
 
   return (
     <div className="bg-black-nav h-[56px] text-white w-full">

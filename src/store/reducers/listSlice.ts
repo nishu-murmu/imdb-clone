@@ -21,8 +21,12 @@ export const ListSlice = createSlice({
     setSelectValue: (state, action) => {
       state.selectValue = action.payload;
     },
-    getWatchlistMovies: (state, action) => {
-      state.watchlistMovies.push(action.payload);
+    setWatchlistMovies: (state, action) => {
+      if(Array.isArray(action.payload)) {
+        state.watchlistMovies = action.payload;
+      } else {
+        state.watchlistMovies.push(action.payload);
+      }
     },
   },
 });

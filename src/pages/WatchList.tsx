@@ -1,17 +1,21 @@
-import Select from "react-select/dist/declarations/src/Select";
+import Select from "react-select";
 import MainLayout from "../components/layouts/MainLayout";
 import { BookMarkPlusIcon, ShareIcon } from "../components/media/Icons";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../utils/types";
+import { RootState, fetchedDataProps, filterOption, listfilterOptions } from "../utils/types";
 import useOnClickPreview from "../utils/customHooks/useOnClickPreview";
 import { useEffect } from "react";
 import { getMovieDetails } from "../utils/apiFunctions";
 import { ListActions } from "../store/reducers/listSlice";
+import moment from "moment";
 
 const WatchList = () => {
   const dispatch = useDispatch();
   const { onClickPreviewHandler } = useOnClickPreview();
   const baseUrl = import.meta.env.VITE_BASE_URL;
+  const filterSelectValue = useSelector(
+    (state: RootState) => state.list?.selectValue
+  );
   let movieDetailsArray = useSelector(
     (state: RootState) => state.list.watchlistMovies
   );
@@ -25,20 +29,59 @@ const WatchList = () => {
     const getWatchListArray = () => {
       selectedItems.forEach(async (item: number) => {
         let value = await getMovieDetails("movie", item);
-        dispatch(ListActions.getWatchlistMovies(value));
+        dispatch(ListActions.setWatchlistMovies(value));
       });
     };
     getWatchListArray();
-   
   }, []);
-   movieDetailsArray = Object.values(movieDetailsArray).filter(
-     (value, index, self) => {
-       return (
-         index ===
-         self.findIndex((obj) => JSON.stringify(obj) === JSON.stringify(value))
-       );
-     }
-   );
+  movieDetailsArray = Object.values(movieDetailsArray).filter(
+    (value, index, self) => {
+      return (
+        index ===
+        self.findIndex((obj) => JSON.stringify(obj) === JSON.stringify(value))
+      );
+    }
+  );
+  const filteredMovieDetails = (data, filterParam: string | undefined) => {
+    data = data.map((item: fetchedDataProps) => {
+      return {
+        ...item,
+        release_date: new Date(item?.release_date),
+      };
+    });
+    let result = [...data].sort((a: any, b: any): any => {
+      if (filterParam == "runtime") {
+        return b?.runtime - a?.runtime;
+      }
+      if (filterParam == "vote_average")
+        return b?.vote_average - a?.vote_average;
+
+      if (filterParam == "alphabetical") {
+        return Object.fromEntries(
+          Object.entries(data).sort((a, b) => a[0].localeCompare(b[0]))
+        );
+      }
+
+      if (filterParam == "popularity") return b?.popularity - a?.popularity;
+
+      if (filterParam == "vote_count") return b?.vote_count - a?.vote_count;
+      if (filterParam == "release_date")
+        return b?.release_date - a?.release_date;
+    });
+    result = result.map((item: fetchedDataProps) => {
+      return {
+        ...item,
+        release_date: moment(item?.release_date).format("YYYY-MM-DD"),
+      };
+    });
+    return result;
+  };
+  const onSelectChangeHandler = (option: filterOption | null) => {
+    dispatch(ListActions.setSelectValue(option?.value));
+
+    const filterArray = filteredMovieDetails(movieDetailsArray, option?.value);
+    dispatch(ListActions.setWatchlistMovies(filterArray));
+  };
 
   return (
     <MainLayout>
@@ -67,12 +110,12 @@ const WatchList = () => {
               <div className="flex gap-x-2">
                 <div className="mt-1">Sort by:</div>
                 <div className="w-[190px]">
-                  {/* <Select
+                  <Select
                     onChange={onSelectChangeHandler}
                     name="Filters"
-                    defaultValue={selectValue}
-                    options={filterOptions}
-                  /> */}
+                    defaultValue={filterSelectValue}
+                    options={listfilterOptions}
+                  />
                 </div>
                 <div></div>
               </div>
@@ -128,10 +171,10 @@ const WatchList = () => {
                       {item.title}
                     </div>
                     <div className={"text-sm"}>
-                      {item.release_date.split("-")[0]} |{" "}
-                      {item.genres.map((item: any) => (
-                        <span className="px-0.5">{`${item.name} |`}</span>
-                      ))}
+                      {item.genres &&
+                        item?.genres.map((item: any) => (
+                          <span className="px-0.5">{`${item.name} |`}</span>
+                        ))}
                     </div>
                     <div className="text-lg font-semibold">
                       {item.vote_average}

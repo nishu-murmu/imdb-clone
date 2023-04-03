@@ -41,8 +41,7 @@ const List: React.FC = () => {
     (state: RootState) => state.list?.popularMovies
   );
   const selectedList =
-    (!window.localStorage.getItem("selectedItems") &&
-      JSON.parse(window.localStorage.getItem("selectedItems") || "null")) ||
+      JSON.parse(window.localStorage.getItem("selectedItems") || "null") ||
     useSelector((state: RootState) => state.hero.selectedItems);
 
   const filterListHandler = (

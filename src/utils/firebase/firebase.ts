@@ -24,7 +24,6 @@ export const registerUser = async (name: string, email: string, password: string
 
   const result = await createUserWithEmailAndPassword(auth, email, password)
   if (auth.currentUser) {
-    console.log(name, "string");
     await updateProfile(auth.currentUser, { displayName: name })
       .then(() => console.log("Updated Profile"))
       .catch((err) => console.log(err));
