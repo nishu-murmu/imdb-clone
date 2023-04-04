@@ -91,6 +91,7 @@ const List: React.FC = () => {
   useEffect(() => {
     const getPopularMovieList = async () => {
       const result = await getPopularMovies();
+      // const ratedResults = await get
       dispatch(ListActions.getPopularMovies(result));
     };
     getPopularMovieList();

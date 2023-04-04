@@ -32,6 +32,7 @@ export const HeroSlice = createSlice({
           value = [...arr, action.payload];
         }
         setLocaleStorage("selectedItems", JSON.stringify(value));
+        state.selectedItems = value;
       } else {
         value = action.payload;
         setLocaleStorage("selectedItems", JSON.stringify(Array.from(value)));

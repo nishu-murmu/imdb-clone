@@ -81,6 +81,10 @@ const Header: React.FC = () => {
     return () =>
       document.removeEventListener("click", outSideClickHandler, true);
   }, [isDropdown]);
+  const selectItems = useSelector(
+    (state: RootState) => state.hero.selectedItems
+  );
+  useEffect(() => {}, [selectItems]);
 
   return (
     <div className="bg-black-nav h-[56px] text-white w-full">
