@@ -66,14 +66,12 @@ const HeroSection: React.FC = () => {
                 <img
                   className="absolute inset-0 h-full w-full object-cover hover:cursor-pointer"
                   src={`${baseUrl}${item.backdrop_path}`}
-                  onClick={() =>
-                    {
-                      onClickPreviewHandler({
-                        mediaType: item.media_type,
-                        cardId: item.id,
-                      });
-                    }
-                  }
+                  onClick={() => {
+                    onClickPreviewHandler({
+                      mediaType: item.media_type,
+                      cardId: item.id,
+                    });
+                  }}
                 />
 
                 <div className="swiper-container">
@@ -92,6 +90,7 @@ const HeroSection: React.FC = () => {
                     onBookmarkHandler={() => selectHandler(item.id)}
                     bgfillColor={"#DCB116"}
                     iconFillColor={"#000000"}
+                    poster_path={item.poster_path}
                     imgUrl={`${baseUrl}${item.poster_path}`}
                   />
                 </div>

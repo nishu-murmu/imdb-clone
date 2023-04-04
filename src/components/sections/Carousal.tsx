@@ -68,6 +68,7 @@ const Carousal: React.FC = () => {
                     mediaType={"tv"}
                     isCarousal={true}
                     ratings={movie.vote_average}
+                    poster_path={movie.poster_path}
                     imgUrl={`${baseUrl}${movie.poster_path}`}
                   />
                 ))}
@@ -103,6 +104,7 @@ const Carousal: React.FC = () => {
                     title={movie.title}
                     ratings={movie.vote_average}
                     imgUrl={`${baseUrl}${movie.poster_path}`}
+                    poster_path={movie.poster_path}
                   />
                 ))}
               </SwiperSlide>

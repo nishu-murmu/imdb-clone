@@ -78,16 +78,25 @@ const MovieCard = (props: any) => {
         </div>
       )}
 
-      <img
-        src={props.imgUrl}
-        alt=""
-        onClick={() => {
-          onClickPreviewHandler({
-            mediaType: props.mediaType,
-            cardId: props.cardId,
-          });
-        }}
-      />
+      {props.poster_path !== undefined ? (
+        <img
+          src={props.imgUrl}
+          alt=""
+          onClick={() => {
+            onClickPreviewHandler({
+              mediaType: props.mediaType,
+              cardId: props.cardId,
+            });
+          }}
+        />
+      ) : (
+        <img
+          src="/src/assets/svgs/placeholder.png"
+          alt="no image found"
+          className="object-fit h-full"
+        />
+      )}
+
       <div className="h-full text-white block">
         <div className="flex gap-x-4 my-2 px-2">
           <div>{props.ratings}</div>

@@ -65,7 +65,9 @@ const Preview: React.FC = () => {
               {/* Main Preview */}
               <div className="flex flex-col gap-y-2 py-4 mx-8">
                 <div>
-                  <div className="text-5xl font-bold">{mediaDetail.title || mediaDetail.original_name}</div>
+                  <div className="text-5xl font-bold">
+                    {mediaDetail.title || mediaDetail.original_name}
+                  </div>
                   <div className="text-md">{mediaDetail.tagline}</div>
                 </div>
                 <div>
@@ -73,8 +75,13 @@ const Preview: React.FC = () => {
                   <div>({mediaDetail.vote_count}) votes</div>
                 </div>
                 {mediaDetail.runtime && <div>{mediaDetail.runtime} mins</div>}
-                {mediaDetail.number_of_episodes && <div>No of Episodes: {mediaDetail.number_of_episodes}</div>}
-                <div>Release Date: {mediaDetail.release_date || mediaDetail.first_air_date}</div>
+                {mediaDetail.number_of_episodes && (
+                  <div>No of Episodes: {mediaDetail.number_of_episodes}</div>
+                )}
+                <div>
+                  Release Date:{" "}
+                  {mediaDetail.release_date || mediaDetail.first_air_date}
+                </div>
                 <div className="flex gap-x-2">
                   {mediaDetail?.genres?.map((genre: any) => (
                     <button className="border-1 border-blue-500 hover:border-blue-700 text-white font-bold py-2 px-4 rounded-3xl">
@@ -101,20 +108,33 @@ const Preview: React.FC = () => {
                 </button>
               </div>
 
-              <div className="text-lg my-2 font-semibold flex justify-center">
-                Production Companies
-              </div>
-              <div className="flex gap-x-2">
-              {mediaDetail?.production_companies?.map((item: any) => (
-                  item.logo_path ?(<div className="w-40 h-24 rounded-md bg-white relative">
-                    <img
-                      src={`${baseUrl}/${item.logo_path}`}
-                      alt={item.name}
-                      className="block w-full h-full object-contain"
-                    />
-                  </div>): <div></div>
-              ))}
+              {mediaDetail?.production_companies && (
+                <div>
+                  <div className="text-lg my-2 font-semibold flex justify-center">
+                    Production Companies
+                  </div>
+                  <div className="flex gap-x-2">
+                    {mediaDetail?.production_companies?.map((item: any) => (
+                      <div
+                        className={`w-40 h-24 rounded-md ${
+                          item.logo_path === null &&
+                          "text-black-nav-hover text-center pt-6"
+                        } bg-white relative`}
+                      >
+                        {item.logo_path !== null ? (
+                          <img
+                            src={`${baseUrl}/${item.logo_path}`}
+                            alt={item.name}
+                            className="block w-full h-full object-contain"
+                          />
+                        ) : (
+                          <div>{item.name}</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              )}
             </div>
           </div>
         </div>

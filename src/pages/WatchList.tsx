@@ -34,7 +34,8 @@ const WatchList = () => {
     const getWatchListArray = () => {
       selectedItems.forEach(async (item: number) => {
         let value = await getMovieDetails("movie", item);
-        dispatch(ListActions.setWatchlistMovies(value));
+        if(value.status_code === 34) dispatch(ListActions.setWatchlistMovies({}));
+        else dispatch(ListActions.setWatchlistMovies(value));
       });
     };
     getWatchListArray();
@@ -161,9 +162,20 @@ const WatchList = () => {
                   className="grid gap-4 my-6 grid-flow-col h-44 w-ful"
                 >
                   <div className="h-40 w-32 bg-black-nav">
-                    <img src={`${baseUrl}${item.poster_path}`} alt="" />
+                    {item.poster_path !== undefined ? (
+                      <img
+                        src={`${baseUrl}${item.poster_path}`}
+                        alt="movie Image"
+                      />
+                    ) : (
+                      <img
+                        src="/src/assets/svgs/placeholder.png"
+                        alt="no image found"
+                        className="object-fit h-full"
+                      />
+                    )}
                   </div>
-                  <div>
+                 {Object.keys(item).length > 0 && <div>
                     <div
                       onClick={() =>
                         onClickPreviewHandler({
@@ -188,7 +200,7 @@ const WatchList = () => {
                     <div className="text-md">
                       <p>{item.overview}</p>
                     </div>
-                  </div>
+                  </div>}
                 </div>
               ))}
             </div>
