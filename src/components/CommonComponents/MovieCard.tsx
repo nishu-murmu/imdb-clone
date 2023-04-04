@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthContext } from "../../contexts/authContext";
 import { RootState } from "../../utils/types";
@@ -9,17 +9,22 @@ import { getMovieDetails } from "../../utils/apiFunctions";
 import { MovieCardAction } from "../../store/reducers/movieCardSlice";
 import useOnClickPreview from "../../utils/customHooks/useOnClickPreview";
 import useSelectMedia from "../../utils/customHooks/useSelectMedia";
+import useLocaleStorage from "../../utils/customHooks/useLocaleStorage";
 
 const MovieCard = (props: any) => {
   const authContext = useContext(AuthContext);
   const { currentUser } = authContext;
-  const selectedList = JSON.parse(
-    window.localStorage.getItem("selectedItems") || JSON.parse("")
-  )|| useSelector((state: RootState) => state.hero.selectedItems);
+  const { getLocaleStorage } = useLocaleStorage();
+  const selectedList = getLocaleStorage("selectedItems") || useSelector((state: RootState) => state.hero.selectedItems);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { onClickPreviewHandler } = useOnClickPreview();
   const { selectHandler } = useSelectMedia();
+
+  const selectItems = useSelector(
+    (state: RootState) => state.hero.selectedItems
+  );
+  useEffect(() => {}, [selectItems]);
 
   return (
     <div
@@ -27,7 +32,7 @@ const MovieCard = (props: any) => {
         props.isCarousal ? "h-[470px]" : "h-[244px]"
       } `}
     >
-      {!currentUser && !window.localStorage.getItem("currentUser") ? (
+      {!currentUser && !getLocaleStorage("currentUser") ? (
         <Link to={"/signin"}>
           <div>
             <div className="absolute top-0 left-0 group-hover:cursor-pointer">

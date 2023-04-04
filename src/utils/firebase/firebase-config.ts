@@ -1,5 +1,3 @@
-
-
 export const firebaseConfig = {
     apiKey: "AIzaSyDa461OEOc9hr1JIEY3TSUTaGXm7u52lMg",
     authDomain: "imdb-auth-dev.firebaseapp.com",

@@ -1,6 +1,5 @@
 const useLocaleStorage = () => {
     const getLocaleStorage = (locale: string) => {
-    console.log(locale, 'locale')
         return JSON.parse(localStorage.getItem(locale) || "null");
     }
     const setLocaleStorage = (locale: string, value: string) => {

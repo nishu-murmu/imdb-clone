@@ -13,11 +13,13 @@ import { useEffect } from "react";
 import { getMovieDetails } from "../utils/apiFunctions";
 import { ListActions } from "../store/reducers/listSlice";
 import moment from "moment";
+import useLocaleStorage from "../utils/customHooks/useLocaleStorage";
 
 const WatchList = () => {
   const dispatch = useDispatch();
   const { onClickPreviewHandler } = useOnClickPreview();
   const baseUrl = import.meta.env.VITE_BASE_URL;
+  const { getLocaleStorage } = useLocaleStorage();
   const filterSelectValue = useSelector(
     (state: RootState) => state.list?.selectValue
   );
@@ -26,9 +28,7 @@ const WatchList = () => {
   );
 
   const selectedItems =
-    JSON.parse(
-      window.localStorage.getItem("selectedItems") || JSON.parse("")
-    ) || useSelector((state: RootState) => state.hero.selectedItems);
+    getLocaleStorage("selectedItems") || useSelector((state: RootState) => state.hero.selectedItems);
 
   useEffect(() => {
     const getWatchListArray = () => {

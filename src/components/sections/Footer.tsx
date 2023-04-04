@@ -8,29 +8,32 @@ import {
   TwitterIcon,
   YoutubeIcon,
 } from "../media/Icons"
+import useLocaleStorage from "../../utils/customHooks/useLocaleStorage";
 
 const Footer: React.FC<LayoutProps> = (props) => {
+  const { getLocaleStorage } = useLocaleStorage();
   return (
     <div className='bg-black-nav text-white w-full pt-3'>
       <div
         id='footer-section'
         className={`mt-4 w-full ${props.isSignInCover && "py-8"}`}
       >
-        <div className='container mx-auto'>
-          {!props.isSignInCover || JSON.parse(window.localStorage.getItem("currentUser") || "null") && (
-            <div className='justify-center flex'>
-              <Link to='/signinCover'>
-                <button className='bg-yellow-default text-black-default rounded-sm py-2 text-sm px-8 hover:bg-yellow-hover'>
-                  Sign in for more access
-                </button>
-              </Link>
+        <div className="container mx-auto">
+          {!props.isSignInCover ||
+            (getLocaleStorage("currentUser") && (
+              <div className="justify-center flex">
+                <Link to="/signinCover">
+                  <button className="bg-yellow-default text-black-default rounded-sm py-2 text-sm px-8 hover:bg-yellow-hover">
+                    Sign in for more access
+                  </button>
+                </Link>
             </div>
-          )}
-          <div className='pb-6 mt-5 justify-center flex'>
-            <ul className='flex gap-x-5 flex-row'>
-              <li className='p-3 rounded-full hover:bg-black-nav-hover'>
-                <a href='https://www.tiktok.com/@imdb'>
-                  <TiktokIcon className='w-6 h-6' />
+          ))}
+          <div className="pb-6 mt-5 justify-center flex">
+            <ul className="flex gap-x-5 flex-row">
+              <li className="p-3 rounded-full hover:bg-black-nav-hover">
+                <a href="https://www.tiktok.com/@imdb">
+                  <TiktokIcon className="w-6 h-6" />
                 </a>
               </li>
               <li className='p-3 rounded-full hover:bg-black-nav-hover'>

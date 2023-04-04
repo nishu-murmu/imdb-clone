@@ -9,6 +9,7 @@ import {
   userStateListener,
 } from "../utils/firebase/firebase";
 import { User } from "firebase/auth";
+import useLocaleStorage from "../utils/customHooks/useLocaleStorage";
 
 export const AuthContext = React.createContext<AuthContextProps>({
   signOut: () => {},
@@ -20,6 +21,7 @@ export const AuthContext = React.createContext<AuthContextProps>({
 export const AuthProvider = ({ children }: LayoutProps) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const navigate = useNavigate();
+  const { getLocaleStorage, setLocaleStorage } = useLocaleStorage();
 
   useEffect(() => {
     const unsubscribe = userStateListener((user) => {
@@ -33,8 +35,8 @@ export const AuthProvider = ({ children }: LayoutProps) => {
   const signOut = () => {
     SignOutUser();
     setCurrentUser(null);
-    window.localStorage.setItem("currentUser", "null")
-    window.localStorage.setItem("selectedItems", JSON.stringify([])) 
+    setLocaleStorage("currentUser", "null")
+    setLocaleStorage("selectedItems", JSON.stringify([]))
     navigate("/");
   };
 
