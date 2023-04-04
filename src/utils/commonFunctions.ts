@@ -6,7 +6,7 @@ export function debounce<F extends Func>(func: F, delay: number): F {
   return function (this: any, ...args: Parameters<F>) {
     const context = this;
 
-    clearTimeout(timeoutId);
+    clearTimeout(timeoutId as ReturnType<typeof setTimeout>);
     timeoutId = setTimeout(() => func.apply(context, args), delay);
   } as F;
 }

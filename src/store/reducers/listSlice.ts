@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ListSliceProps } from "../../utils/types";
+import useLocaleStorage from "../../utils/customHooks/useLocaleStorage";
 
 const initialState: ListSliceProps = {
   popularMovies: [],
@@ -7,6 +8,7 @@ const initialState: ListSliceProps = {
   watchlistMovies: [],
   selectValue: null,
 };
+const { getLocaleStorage, setLocaleStorage } = useLocaleStorage();
 
 export const ListSlice = createSlice({
   name: "listSlice",

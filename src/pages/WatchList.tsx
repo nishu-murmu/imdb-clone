@@ -33,7 +33,7 @@ const WatchList = () => {
   useEffect(() => {
     const getWatchListArray = () => {
       selectedItems.forEach(async (item: number) => {
-        let value = await getMovieDetails("movie", item);
+        let value: any = await getMovieDetails("movie", item);
         if(value.status_code === 34) dispatch(ListActions.setWatchlistMovies({}));
         else dispatch(ListActions.setWatchlistMovies(value));
       });
@@ -72,7 +72,7 @@ const WatchList = () => {
         return b?.release_date - a?.release_date;
     });
     if(filterParam === "alphabetical") {
-      return [...data].sort((a, b) => a.title.localeCompare(b.title));
+      return [...data].sort((a, b) => a?.title.localeCompare(b?.title));
     }
     result = result.map((item: fetchedDataProps) => {
       return {

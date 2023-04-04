@@ -182,7 +182,7 @@ const List: React.FC = () => {
                           >
                             {item.original_title}
                           </span>
-                          {selectValue === "popularity" ? (
+                          {selectValue?.value === "popularity" ? (
                             <span>{`(${item.popularity})`}</span>
                           ) : (
                             <span>{`(${
