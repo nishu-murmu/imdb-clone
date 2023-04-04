@@ -1,4 +1,5 @@
 import { User } from "firebase/auth"
+import React,{ ReactElement } from "react"
 
 export interface fetchedDataProps {
   id: number
@@ -76,7 +77,11 @@ export interface ImageProps {
 
 export interface LayoutProps {
   children?: React.ReactNode
+  element?: ReactElement
   isSignInCover?: boolean
+  className?: string
+  href?: string
+  text?: string
 }
 
 export interface filterOption {
