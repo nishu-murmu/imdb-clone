@@ -11,9 +11,9 @@ import { useEffect } from "react";
 import {
   getPopularMovies,
   getPopularShows,
-  getMovieDetails,
 } from "../../utils/apiFunctions";
 import { ListActions } from "../../store/reducers/listSlice";
+import { noOfCards } from "../../utils/constants";
 
 const Carousal: React.FC = () => {
   const dispatch = useDispatch();
@@ -56,36 +56,23 @@ const Carousal: React.FC = () => {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
           >
-            <SwiperSlide className="flex gap-x-4">
-              {popularShows?.slice(0, 7).map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  title={movie.original_name}
-                  cardId={movie.id}
-                  bgfillColor={"#DCB116"}
-                  iconFillColor={"#000000"}
-                  mediaType={"tv"}
-                  isCarousal={true}
-                  ratings={movie.vote_average}
-                  imgUrl={`${baseUrl}${movie.poster_path}`}
-                />
-              ))}
-            </SwiperSlide>
-            <SwiperSlide className="flex gap-x-4">
-              {popularShows?.slice(12, 19).map((movie) => (
-                <MovieCard
-                  isCarousal={true}
-                  cardId={movie.id}
-                  mediaType={"tv"}
-                  bgfillColor={"#DCB116"}
-                  iconFillColor={"#000000"}
-                  title={movie.original_name}
-                  key={movie.id}
-                  ratings={movie.vote_average}
-                  imgUrl={`${baseUrl}${movie.poster_path}`}
-                />
-              ))}
-            </SwiperSlide>
+            {noOfCards.map((item: number) => (
+              <SwiperSlide className="flex gap-x-4">
+                {popularShows?.slice(item - 7, item).map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    title={movie.original_name}
+                    cardId={movie.id}
+                    bgfillColor={"#DCB116"}
+                    iconFillColor={"#000000"}
+                    mediaType={"tv"}
+                    isCarousal={true}
+                    ratings={movie.vote_average}
+                    imgUrl={`${baseUrl}${movie.poster_path}`}
+                  />
+                ))}
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
         <div className="text-2xl text-white font-bold">Fan Favourites</div>
@@ -103,36 +90,23 @@ const Carousal: React.FC = () => {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
           >
-            <SwiperSlide className="flex gap-x-4">
-              {popularMovies?.slice(0, 7).map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  cardId={movie.id}
-                  bgfillColor={"#DCB116"}
-                  iconFillColor={"#000000"}
-                  mediaType={"movie"}
-                  isCarousal={true}
-                  title={movie.title}
-                  ratings={movie.vote_average}
-                  imgUrl={`${baseUrl}${movie.poster_path}`}
-                />
-              ))}
-            </SwiperSlide>
-            <SwiperSlide className="flex gap-x-4">
-              {popularMovies?.slice(7, 14).map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  title={movie.title}
-                  bgfillColor={"#DCB116"}
-                  iconFillColor={"#000000"}
-                  mediaType={"movie"}
-                  cardId={movie.id}
-                  ratings={movie.vote_average}
-                  isCarousal={true}
-                  imgUrl={`${baseUrl}${movie.poster_path}`}
-                />
-              ))}
-            </SwiperSlide>
+            {noOfCards.map((n: number) => (
+              <SwiperSlide className="flex gap-x-4">
+                {popularMovies?.slice(n - 7, n).map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    cardId={movie.id}
+                    bgfillColor={"#DCB116"}
+                    iconFillColor={"#000000"}
+                    mediaType={"movie"}
+                    isCarousal={true}
+                    title={movie.title}
+                    ratings={movie.vote_average}
+                    imgUrl={`${baseUrl}${movie.poster_path}`}
+                  />
+                ))}
+              </SwiperSlide>
+            ))}
             <div className="swiper-pagination swiper-pagination-bullets hidden"></div>
           </Swiper>
         </div>

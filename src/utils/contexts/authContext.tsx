@@ -21,7 +21,7 @@ export const AuthContext = React.createContext<AuthContextProps>({
 export const AuthProvider = ({ children }: LayoutProps) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const navigate = useNavigate();
-  const { getLocaleStorage, setLocaleStorage } = useLocaleStorage();
+  const { setLocaleStorage } = useLocaleStorage();
 
   useEffect(() => {
     const unsubscribe = userStateListener((user) => {

@@ -9,6 +9,7 @@ import SignInCover from "./pages/SignInCover";
 import Protected from "./routes/privateRoute";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./utils/types";
+import ErrorBoundary from "./pages/404";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function App() {
   return (
     <section className=" w-full h-full font-roboto">
       <Routes>
+        <Route path="*" element={<ErrorBoundary/>}/>
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn />} />

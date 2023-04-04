@@ -1,6 +1,6 @@
 import { LayoutProps } from "../../utils/types";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -11,37 +11,11 @@ import {
 } from "../media/Icons";
 import useLocaleStorage from "../../utils/customHooks/useLocaleStorage";
 import CommonLink from "../CommonComponents/CommonLink";
+import { privacyLinks, siteLinks } from "../../utils/constants";
 
 const Footer: React.FC<LayoutProps> = (props) => {
   const { getLocaleStorage } = useLocaleStorage();
 
-  const siteLinks = [
-    {
-      text: "Get TMDb App",
-      link: "https://apps.apple.com/us/app/id342792525?_branch_match_id=1171716963288816844&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL86pTNJLLCjQy8nMy9YP9k6pDDRzNDGxBABVqlN1IAAAAA%3D%3D&utm_campaign=mdot%20sitewide%20footer%20Branch%20update&utm_medium=marketing&utm_source=IMDb%20Mdot",
-    },
-    {
-      text: "Help",
-      link: "https://help.imdb.com/imdb",
-    },
-    {
-      text: "Site Index",
-      link: "https://help.imdb.com/article/imdb/general-information/imdb-site-index/GNCX7BHNSPBTFALQ#so",
-    },
-    {
-      text: "IMDb Pro",
-      link: "https://pro.imdb.com/signup/index.html?rf=cons_tf_pro&u=http%3A%2F%2Fpro.imdb.com%2F%3Fref_%3Dcons_tf_pro%26rf%3Dcons_tf_pro",
-    },
-    { link: "https://www.boxofficemojo.com/", text: "Box Office Mojo" },
-    {
-      text: "Box Office Mojo",
-      link: "https://www.boxofficemojo.com/",
-    },
-    {
-      text: "IMDb Developer",
-      link: "https://developer.imdb.com/",
-    },
-  ];
   const socialLinks: any[] = [
     {
       icon: <FacebookIcon className="w-6 h-6" />,
@@ -64,32 +38,7 @@ const Footer: React.FC<LayoutProps> = (props) => {
       link: "https://www.youtube.com/",
     },
   ];
-  const privacyLinks = [
-    {
-      text: "Press Room",
-      link: "https://www.imdb.com/pressroom/?ref_=ft_pr",
-    },
-    {
-      text: "Advertising",
-      link: "https://advertising.amazon.com/resources/ad-specs/imdb/",
-    },
-    {
-      text: "Jobs",
-      link: "https://www.amazon.jobs/en/teams/imdb",
-    },
-    {
-      text: "Condition of Users",
-      link: "https://www.imdb.com/conditions?ref_=ft_cou",
-    },
-    {
-      text: "Privacy Policy",
-      link: "https://www.imdb.com/privacy?ref_=ft_pvc",
-    },
-    {
-      text: "Your Add Privacy Policy",
-      link: "https://www.imdb.com/privacy/adpreferences/",
-    },
-  ];
+
   return (
     <div className="bg-black-nav text-white w-full pt-3">
       <div
@@ -97,16 +46,15 @@ const Footer: React.FC<LayoutProps> = (props) => {
         className={`mt-4 w-full ${props.isSignInCover && "py-8"}`}
       >
         <div className="container mx-auto">
-          {!props.isSignInCover ||
-            (getLocaleStorage("currentUser") && (
-              <div className="justify-center flex">
-                <Link to="/signinCover">
-                  <button className="bg-yellow-default text-black-default rounded-sm py-2 text-sm px-8 hover:bg-yellow-hover">
-                    Sign in for more access
-                  </button>
-                </Link>
-              </div>
-            ))}
+          {!getLocaleStorage("currentUser") && !props.isSignInCover && (
+            <div className="justify-center flex">
+              <Link to="/signinCover">
+                <button className="bg-yellow-default text-black-default rounded-sm py-2 text-sm px-8 hover:bg-yellow-hover">
+                  Sign in for more access
+                </button>
+              </Link>
+            </div>
+          )}
           <div className="pb-6 mt-5 justify-center flex">
             <ul className="flex gap-x-5 flex-row">
               {socialLinks.map((socialLink: any) => (
