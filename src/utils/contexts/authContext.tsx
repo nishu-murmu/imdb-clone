@@ -41,7 +41,6 @@ export const AuthProvider = ({ children }: LayoutProps) => {
   };
 
   const signIn = ({ email, password }: UserProps) => {
-    navigate("/");
     return signInUser(email, password);
   };
 

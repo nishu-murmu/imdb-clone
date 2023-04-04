@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../utils/types";
 import { CheckMarkIcon, PlusIcon } from "../components/media/Icons";
 import useSelectMedia from "../utils/customHooks/useSelectMedia";
+import { Link } from "react-router-dom";
 const Preview: React.FC = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const location = useLocation();
@@ -32,35 +33,60 @@ const Preview: React.FC = () => {
           <div className="pt-10 px-4 flex flex-col">
             <div className="flex">
               <div className="w-[520px] relative">
-                <img
-                  src={`${baseUrl}/${mediaDetail.poster_path}`}
-                  alt=""
-                  className="h-[400px]"
-                />
-
-                <div
-                  className="absolute top-0 left-2"
-                  onClick={() => selectHandler(mediaDetail.id)}
-                >
-                  <BookMarkImage
-                    height="65px"
-                    width="65px"
-                    fillColor="yellow"
+                {mediaDetail.poster_path !== null ? (
+                  <img
+                    src={`${baseUrl}/${mediaDetail.poster_path}`}
+                    alt=""
+                    className="h-[400px]"
                   />
-                  {currentUser && selectedList?.includes(mediaDetail.id) ? (
-                    <div className="absolute top-2 left-3">
-                      <CheckMarkIcon
-                        height="40px"
-                        width="40px"
-                        fillColor="green"
+                ) : (
+                  <img
+                    src="/src/assets/svgs/placeholder.png"
+                    alt="no image found"
+                    className="object-fit h-full"
+                  />
+                )}
+
+                {!currentUser && (
+                  <Link to="/signin">
+                    <div className="absolute top-0 left-2">
+                      <BookMarkImage
+                        height="65px"
+                        width="65px"
+                        fillColor="yellow"
                       />
+
+                      <div className="absolute top-4 left-5">
+                        <PlusIcon fillColor="black" className="top-6 left-8" />
+                      </div>
                     </div>
-                  ) : (
-                    <div className="absolute top-4 left-5">
-                      <PlusIcon fillColor="black" className="top-6 left-8" />
-                    </div>
-                  )}
-                </div>
+                  </Link>
+                )}
+                {currentUser && mediaDetail.poster_path !== null && (
+                  <div
+                    className="absolute top-0 left-2"
+                    onClick={() => selectHandler(mediaDetail.id)}
+                  >
+                    <BookMarkImage
+                      height="65px"
+                      width="65px"
+                      fillColor="yellow"
+                    />
+                    {currentUser && selectedList?.includes(mediaDetail.id) ? (
+                      <div className="absolute top-2 left-3">
+                        <CheckMarkIcon
+                          height="40px"
+                          width="40px"
+                          fillColor="green"
+                        />
+                      </div>
+                    ) : (
+                      <div className="absolute top-4 left-5">
+                        <PlusIcon fillColor="black" className="top-6 left-8" />
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
               {/* Main Preview */}
               <div className="flex flex-col gap-y-2 py-4 mx-8">

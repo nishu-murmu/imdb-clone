@@ -7,7 +7,7 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import MovieCard from "../CommonComponents/MovieCard";
 import { getUpcomingMovies, getTrendingMedia, getMovieDetails } from "../../utils/apiFunctions";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../utils/types";
 import { HeroActions } from "../../store/reducers/heroSlice";
@@ -62,7 +62,7 @@ const HeroSection: React.FC = () => {
         >
           {trendingMedia?.slice(0, 9).map((item: any) => (
             <SwiperSlide>
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-full my-background-image">
                 <img
                   className="absolute inset-0 h-full w-full object-cover hover:cursor-pointer"
                   src={`${baseUrl}${item.backdrop_path}`}

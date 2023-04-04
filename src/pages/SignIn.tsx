@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { WarningIcon } from "../components/media/Icons";
 import { LogoImage } from "../components/media/Images";
 import { AuthContext } from "../utils/contexts/authContext";
@@ -12,13 +12,18 @@ const SignIn: React.FC = () => {
   const { signIn, currentUser, signOut } = authContext;
   const disptach = useDispatch();
   const userDetails = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
   const isSubmited = useSelector((state: RootState) => state.auth.isSubmitted);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    disptach(AuthActions.setIsSubmitted(true));
+    disptach(AuthActions.setIsSubmitted(!isSubmited));
     if (currentUser === null) {
-      signIn(userDetails).catch((err: any) => {
+      signIn(userDetails).then((user: any) => {
+        navigate("/")
+      }).catch((err: any) => {
+        navigate("/signin")
+        disptach(AuthActions.setIsSubmitted(!isSubmited));
         disptach(
           AuthActions.setNotFound(
             JSON.stringify(err.code).replace(/"/g, "").split("/")[1]
