@@ -1,6 +1,6 @@
 import { LayoutProps } from "../../utils/types";
 import { Link } from "react-router-dom";
-import React, { ReactElement } from "react";
+import React from "react";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -16,12 +16,31 @@ const Footer: React.FC<LayoutProps> = (props) => {
   const { getLocaleStorage } = useLocaleStorage();
 
   const siteLinks = [
-    "Get TMDb App",
-    "Help",
-    "Site Index",
-    "IMDb Pro",
-    "Box Office Mojo",
-    "Main Developers",
+    {
+      text: "Get TMDb App",
+      link: "https://apps.apple.com/us/app/id342792525?_branch_match_id=1171716963288816844&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL86pTNJLLCjQy8nMy9YP9k6pDDRzNDGxBABVqlN1IAAAAA%3D%3D&utm_campaign=mdot%20sitewide%20footer%20Branch%20update&utm_medium=marketing&utm_source=IMDb%20Mdot",
+    },
+    {
+      text: "Help",
+      link: "https://help.imdb.com/imdb",
+    },
+    {
+      text: "Site Index",
+      link: "https://help.imdb.com/article/imdb/general-information/imdb-site-index/GNCX7BHNSPBTFALQ#so",
+    },
+    {
+      text: "IMDb Pro",
+      link: "https://pro.imdb.com/signup/index.html?rf=cons_tf_pro&u=http%3A%2F%2Fpro.imdb.com%2F%3Fref_%3Dcons_tf_pro%26rf%3Dcons_tf_pro",
+    },
+    { link: "https://www.boxofficemojo.com/", text: "Box Office Mojo" },
+    {
+      text: "Box Office Mojo",
+      link: "https://www.boxofficemojo.com/",
+    },
+    {
+      text: "IMDb Developer",
+      link: "https://developer.imdb.com/",
+    },
   ];
   const socialLinks: any[] = [
     {
@@ -46,14 +65,31 @@ const Footer: React.FC<LayoutProps> = (props) => {
     },
   ];
   const privacyLinks = [
-    "Press Room",
-    "Advertising",
-    "Jobs",
-    "Condition fo Users",
-    "Privacy Policy",
-    "Your Add Privacy Policy",
+    {
+      text: "Press Room",
+      link: "https://www.imdb.com/pressroom/?ref_=ft_pr",
+    },
+    {
+      text: "Advertising",
+      link: "https://advertising.amazon.com/resources/ad-specs/imdb/",
+    },
+    {
+      text: "Jobs",
+      link: "https://www.amazon.jobs/en/teams/imdb",
+    },
+    {
+      text: "Condition of Users",
+      link: "https://www.imdb.com/conditions?ref_=ft_cou",
+    },
+    {
+      text: "Privacy Policy",
+      link: "https://www.imdb.com/privacy?ref_=ft_pvc",
+    },
+    {
+      text: "Your Add Privacy Policy",
+      link: "https://www.imdb.com/privacy/adpreferences/",
+    },
   ];
-  console.log(socialLinks, 'links')
   return (
     <div className="bg-black-nav text-white w-full pt-3">
       <div
@@ -84,24 +120,24 @@ const Footer: React.FC<LayoutProps> = (props) => {
           </div>
           <div id="imdb-sites" className="justify-center flex">
             <ul className="flex flex-row gap-x-2">
-              {siteLinks.map((item: string) => (
+              {siteLinks.map((item: any) => (
                 <CommonLink
                   className="p-2 hover:underline flex gap-x-1"
                   element={<LinkIcon />}
-                  text={item}
-                  href={""}
+                  text={item.text}
+                  href={item.link}
                 />
               ))}
             </ul>
           </div>
           <div id="imdb-sites" className="justify-center flex">
             <ul className="flex flex-row gap-x-6">
-              {privacyLinks.map((link: string) => (
+              {privacyLinks.map((item: any) => (
                 <CommonLink
                   className="p-2 hover:underline flex gap-x-1"
                   element={<LinkIcon />}
-                  text={link}
-                  href={""}
+                  text={item.text}
+                  href={item.link}
                 />
               ))}
             </ul>

@@ -4,7 +4,7 @@ import { LayoutProps } from "../../utils/types";
 const CommonLink:React.FC = ({element, className, href, text}: LayoutProps): JSX.Element => {
     return (
       <li className={className}>
-        <a href={href}>{text}</a>
+        <a target="_blank" href={href}>{text}</a>
         {element}
       </li>
     );
