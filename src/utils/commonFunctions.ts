@@ -1,12 +1,12 @@
-interface IDebounce {
-  (func: any, timer?: number): (...args: any) => void;
-}
+type Func = (...args: any[]) => any;
 
-export const debounce = (func: IDebounce, timer = 1000) => {
-  return (...args: any) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, 1000);
-  };
-};
+export function debounce<F extends Func>(func: F, delay: number): F {
+  let timeoutId: ReturnType<typeof setTimeout> | null;
+
+  return function (this: any, ...args: Parameters<F>) {
+    const context = this;
+
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(context, args), delay);
+  } as F;
+}

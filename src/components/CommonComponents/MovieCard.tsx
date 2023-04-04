@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AuthContext } from "../../contexts/authContext";
+import { AuthContext } from "../../utils/contexts/authContext";
 import { RootState } from "../../utils/types";
 import { Link, useNavigate } from "react-router-dom";
 import { CheckMarkIcon, PlusIcon, StarIcon, WarningIcon } from "../media/Icons";

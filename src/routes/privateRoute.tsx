@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../contexts/authContext";
+import { AuthContext } from "../utils/contexts/authContext";
 import useLocaleStorage from "../utils/customHooks/useLocaleStorage";
 import { LayoutProps } from "../utils/types";
 

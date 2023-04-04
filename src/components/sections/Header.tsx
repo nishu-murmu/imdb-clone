@@ -21,9 +21,10 @@ import { getSearchMovie } from "../../utils/apiFunctions";
 import { HeaderActions } from "../../store/reducers/headerSlice";
 import { RootState } from "../../utils/types";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../contexts/authContext";
+import { AuthContext } from "../../utils/contexts/authContext";
 import useOnClickPreview from "../../utils/customHooks/useOnClickPreview";
 import useLocaleStorage from "../../utils/customHooks/useLocaleStorage";
+import { debounce } from "../../utils/commonFunctions";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -37,25 +38,18 @@ const Header: React.FC = () => {
 
   if (currentUser && currentUser.displayName)
     setLocaleStorage("currentUser", JSON.stringify(currentUser?.displayName));
-
   const searchedMovies = useSelector(
     (state: RootState) => state.header.searchedMovies
   );
   const selectedList =
     getLocaleStorage("selectedItems") ||
     useSelector((state: RootState) => state.hero.selectedItems);
+  const selectItems = useSelector(
+    (state: RootState) => state.hero.selectedItems
+  );
   const dropdownRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-
   const baseUrl = import.meta.env.VITE_BASE_URL;
-
-  useEffect(() => {
-    const getData = async () => {
-      let result = await getSearchMovie(searchText);
-      dispatch(HeaderActions.setSearchedMovies(result));
-    };
-    getData();
-  }, [searchText]);
 
   const outSideClickHandler = (event: Event | null) => {
     if (
@@ -76,14 +70,22 @@ const Header: React.FC = () => {
     !inputValue && dispatch(HeaderActions.setIsDropDown(false));
     dispatch(HeaderActions.setSearchText(inputValue));
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      let result = await getSearchMovie(searchText);
+      dispatch(HeaderActions.setSearchedMovies(result));
+    };
+    const debouncedGetData = debounce(getData, 300);
+    debouncedGetData()
+  }, [searchText]);
+
   useEffect(() => {
     document.addEventListener("click", outSideClickHandler, true);
     return () =>
       document.removeEventListener("click", outSideClickHandler, true);
   }, [isDropdown]);
-  const selectItems = useSelector(
-    (state: RootState) => state.hero.selectedItems
-  );
+
   useEffect(() => {}, [selectItems]);
 
   return (

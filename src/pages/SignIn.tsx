@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { WarningIcon } from "../components/media/Icons";
 import { LogoImage } from "../components/media/Images";
-import { AuthContext } from "../contexts/authContext";
+import { AuthContext } from "../utils/contexts/authContext";
 import { AuthActions } from "../store/reducers/AuthSlice";
 import { RootState } from "../utils/types";
 

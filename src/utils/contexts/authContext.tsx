@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { AuthContextProps, LayoutProps, UserProps } from "../utils/types";
+import { AuthContextProps, LayoutProps, UserProps } from "../types";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import {
@@ -7,9 +7,9 @@ import {
   SignOutUser,
   signInUser,
   userStateListener,
-} from "../utils/firebase/firebase";
+} from "../firebase/firebase";
 import { User } from "firebase/auth";
-import useLocaleStorage from "../utils/customHooks/useLocaleStorage";
+import useLocaleStorage from "../customHooks/useLocaleStorage";
 
 export const AuthContext = React.createContext<AuthContextProps>({
   signOut: () => {},

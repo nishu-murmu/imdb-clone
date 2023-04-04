@@ -26,7 +26,6 @@ const Carousal: React.FC = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-    // document.getElementsByClassName("swiper-pagination")?.classList.add("hidden");
     const getPopularMovieList = async () => {
       const result = await getPopularMovies();
       const moviesResult = await getPopularShows();

@@ -22,7 +22,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MovieCardAction } from "../store/reducers/movieCardSlice";
 import useSelectMedia from "../utils/customHooks/useSelectMedia";
 import useOnClickPreview from "../utils/customHooks/useOnClickPreview";
-import { AuthContext } from "../contexts/authContext";
+import { AuthContext } from "../utils/contexts/authContext";
 import useLocaleStorage from "../utils/customHooks/useLocaleStorage";
 
 const List: React.FC = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { LogoImage } from "../components/media/Images";
-import { AuthContext } from "../contexts/authContext";
+import { AuthContext } from "../utils/contexts/authContext";
 import { useContext } from "react";
 import { RootState } from "../utils/types";
 import { useSelector, useDispatch } from "react-redux";
