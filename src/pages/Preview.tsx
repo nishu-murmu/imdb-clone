@@ -1,20 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router";
 import MainLayout from "../components/layouts/MainLayout";
 import { getMovieDetails } from "../utils/apiFunctions";
+import { BookMarkImage } from "../components/media/Images";
+import { AuthContext } from "../utils/contexts/authContext";
+import useLocaleStorage from "../utils/customHooks/useLocaleStorage";
+import { useSelector } from "react-redux";
+import { RootState } from "../utils/types";
+import { CheckMarkIcon, PlusIcon } from "../components/media/Icons";
+import useSelectMedia from "../utils/customHooks/useSelectMedia";
 const Preview: React.FC = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const location = useLocation()
+  const location = useLocation();
+  const { getLocaleStorage } = useLocaleStorage();
+  const selectedList =
+    getLocaleStorage("selectedItems") ||
+    useSelector((state: RootState) => state.hero.selectedItems);
+  const { selectHandler } = useSelectMedia();
+  const authContext = useContext(AuthContext);
+  const { currentUser } = authContext;
+  const selectItems = useSelector(
+    (state: RootState) => state.hero.selectedItems
+  );
+  useEffect(() => {}, [selectItems]);
 
-  const mediaDetail = location.state
+  const mediaDetail = location.state;
   return (
     <MainLayout>
       <div className="h-screen bg-black-nav-hover text-white">
         <div className="container mx-auto">
           <div className="pt-10 px-4 flex flex-col">
             <div className="flex">
-              <div className="w-[520px]">
-                <img src={`${baseUrl}/${mediaDetail.poster_path}`} alt="" className="h-[400px]"/>
+              <div className="w-[520px] relative">
+                <img
+                  src={`${baseUrl}/${mediaDetail.poster_path}`}
+                  alt=""
+                  className="h-[400px]"
+                />
+
+                <div
+                  className="absolute top-0 left-2"
+                  onClick={() => selectHandler(mediaDetail.id)}
+                >
+                  <BookMarkImage
+                    height="65px"
+                    width="65px"
+                    fillColor="yellow"
+                  />
+                  {currentUser && selectedList?.includes(mediaDetail.id) ? (
+                    <div className="absolute top-2 left-3">
+                      <CheckMarkIcon
+                        height="40px"
+                        width="40px"
+                        fillColor="green"
+                      />
+                    </div>
+                  ) : (
+                    <div className="absolute top-4 left-5">
+                      <PlusIcon fillColor="black" className="top-6 left-8" />
+                    </div>
+                  )}
+                </div>
               </div>
               {/* Main Preview */}
               <div className="flex flex-col gap-y-2 py-4 mx-8">
